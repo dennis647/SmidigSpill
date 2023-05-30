@@ -132,9 +132,12 @@ function getRandomSafeSpot() {
   function attemptReturn(x, y){
     const key = getKeyString(x,y);
     if(mapData.returnPoint == key){
-      console.log("yesss");
+      console.log("Painting(s) saved!");
       const paintingsCollected = document.getElementById("Collected-Paintings");
       paintingsCollected.innerHTML += players[playerId].coins;
+      playerRef.update({
+        coins: players[playerId].coins = 0,
+      })
     }
   }
 
