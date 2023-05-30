@@ -100,6 +100,7 @@ function getRandomSafeSpot() {
   let coins = {};
   let coinElements = {};
   let sum = 0;
+  let allPlayersRef = {};
 
   const gameContainer = document.querySelector(".game-container");
   const playerNameInput = document.querySelector("#player-name");
@@ -160,6 +161,7 @@ function getRandomSafeSpot() {
         const otherPlayer = players[key];
         if (otherPlayer.x === newX && otherPlayer.y === newY){
           collisionDetected = true;
+          pushedPlayerId = key
           console.log("Collision detected with player ", key);
 
           const redFlash = document.getElementById("red-Flash");  
@@ -168,9 +170,8 @@ function getRandomSafeSpot() {
           redFlash.style.display = 'none';
           }, 200);
 
-          playerRef.update({
-            coins: players[playerId].coins = 0
-          })
+          firebase.database().ref(`players/${pushedPlayerId}`).update({
+            coins: players[pushedPlayerId].coins = 0,})
         }
       }
     });
