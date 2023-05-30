@@ -170,9 +170,19 @@ function getRandomSafeSpot() {
           redFlash.style.display = 'none';
           }, 200);
 
+          if(players[pushedPlayerId].coins >= 1) {
           firebase.database().ref(`players/${pushedPlayerId}`).update({
-            coins: players[pushedPlayerId].coins = 0, collisionDetected: true})
+            coins: players[pushedPlayerId].coins -= 1, collisionDetected: true})
+            if(players[pushedPlayerId].coins >= 0) {
+            playerRef.update({
+              coins: players[playerId].coins + 1,
+            })
+          } else {
+            return;
+          }
+
         }
+      }
       }
     });
 
