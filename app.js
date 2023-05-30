@@ -161,6 +161,9 @@ function getRandomSafeSpot() {
         if (otherPlayer.x === newX && otherPlayer.y === newY){
           collisionDetected = true;
           console.log("Collision detected with player ", key);
+          playerRef.update({
+            coins: players[playerId].coins = 0
+          })
         }
       }
     });
