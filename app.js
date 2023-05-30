@@ -161,6 +161,13 @@ function getRandomSafeSpot() {
         if (otherPlayer.x === newX && otherPlayer.y === newY){
           collisionDetected = true;
           console.log("Collision detected with player ", key);
+
+          const redFlash = document.getElementById("red-Flash");  
+          redFlash.style.display = 'block';
+          setTimeout(() => {
+          redFlash.style.display = 'none';
+          }, 200);
+
           playerRef.update({
             coins: players[playerId].coins = 0
           })
