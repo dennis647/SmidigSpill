@@ -133,6 +133,8 @@ function getRandomSafeSpot() {
     const key = getKeyString(x,y);
     if(mapData.returnPoint == key){
       console.log("yesss");
+      const paintingsCollected = document.getElementById("Collected-Paintings");
+      paintingsCollected.innerHTML += players[playerId].coins;
     }
   }
 
