@@ -158,7 +158,7 @@ function getRandomSafeSpot() {
         const otherPlayer = players[key];
         if (otherPlayer.x === newX && otherPlayer.y === newY){
           collisionDetected = true;
-          console.log("Collision detected with player: ", key);
+          console.log("Collision detected with player ", key);
         }
       }
     });
