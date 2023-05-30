@@ -32,42 +32,21 @@ function getKeyString(x, y) {
 
 function createName() {
   const prefix = randomFromArray([
-    "COOL",
-    "SUPER",
-    "HIP",
-    "SMUG",
-    "COOL",
-    "SILKY",
-    "GOOD",
-    "SAFE",
-    "DEAR",
-    "DAMP",
-    "WARM",
-    "RICH",
-    "LONG",
-    "DARK",
-    "SOFT",
-    "BUFF",
-    "DOPE",
+    "EDVARD",
+    "MUNCH",
+    "EDVARD MUNCH",
+    "SKRIK",
+    "VAMPYR",
+    "ANGST",
+    "LØSRIVELSE",
+    "STJERNENATT",
+    "STRAND",
+    "RØDT OG HVITT",
+    "SJALSUI",
+    "TOGRØYK",
   ]);
-  const animal = randomFromArray([
-    "BEAR",
-    "DOG",
-    "CAT",
-    "FOX",
-    "LAMB",
-    "LION",
-    "BOAR",
-    "GOAT",
-    "VOLE",
-    "SEAL",
-    "PUMA",
-    "MULE",
-    "BULL",
-    "BIRD",
-    "BUG",
-  ]);
-  return `${prefix} ${animal}`;
+
+  return `${prefix}`;
 }
 
 function isSolid(x,y) {
