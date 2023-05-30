@@ -134,7 +134,7 @@ function getRandomSafeSpot() {
     const key = getKeyString(x,y);
     if(mapData.returnPoint == key){
       console.log("Painting(s) saved!");
-      const paintingsCollected = document.getElementById("Collected-Paintings");
+      const paintingsCollected = document.getElementById("collected-paintings");
       sum += players[playerId].coins;
       paintingsCollected.innerHTML = `Stolen Paintings: ${sum}`
       playerRef.update({
