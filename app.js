@@ -3,8 +3,8 @@ const mapData = {
   maxX: 14,
   minY: 4,
   maxY: 12,
+  returnPoint:"7x4",
   blockedSpaces: {
-    "7x4": true,
     "1x11": true,
     "12x10": true,
     "4x7": true,
@@ -31,7 +31,7 @@ function getKeyString(x, y) {
 }
 
 function createName() {
-  const prefix = randomFromArray([
+  const nameGen = randomFromArray([
     "EDVARD",
     "MUNCH",
     "EDVARD MUNCH",
@@ -46,7 +46,7 @@ function createName() {
     "TOGRØYK",
   ]);
 
-  return `${prefix}`;
+  return `${nameGen}`;
 }
 
 function isSolid(x,y) {
@@ -129,7 +129,12 @@ function getRandomSafeSpot() {
       })
     }
   }
-
+  function attemptReturn(x, y){
+    const key = getKeyString(x,y);
+    if(mapData.returnPoint == key){
+      console.log("yesss");
+    }
+  }
 
   function handleArrowPress(xChange=0, yChange=0) {
     const newX = players[playerId].x + xChange;
@@ -146,6 +151,7 @@ function getRandomSafeSpot() {
       }
       playerRef.set(players[playerId]);
       attemptGrabCoin(newX, newY);
+      attemptReturn(newX,newY);
     }
   }
 
