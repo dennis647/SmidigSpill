@@ -23,10 +23,10 @@ html, body {
 }
 .redflash{
   position: absolute;
-  width: 240px;
-  height:208px; 
+  width: 100vw;
+  height:100vh; 
   transform:scale(3);
-  background-color: rgba(255, 0, 0, 0.664);
+  background-color: rgb(255, 0, 0);
   z-index: 1;
   display:none;
 }
