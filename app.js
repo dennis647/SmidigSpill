@@ -144,9 +144,11 @@ function getRandomSafeSpot() {
     }
   }
 
+  /*
   function checkCollision(player1, player2){
     return player1.x === player2.x && player1.y === player2.y
-}
+  
+}*/
 
   function handleArrowPress(xChange=0, yChange=0) {
     const newX = players[playerId].x + xChange;
