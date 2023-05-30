@@ -139,6 +139,7 @@ function getRandomSafeSpot() {
       paintingsCollected.innerHTML = `Stolen Paintings: ${sum}`
       playerRef.update({
         coins: players[playerId].coins = 0,
+        collectedPaintings: players[playerId].collectedPaintings = sum,
       })
     }
   }
@@ -308,6 +309,7 @@ function getRandomSafeSpot() {
         x,
         y,
         coins: 0,
+        collectedPaintings: 0,
       })
 
       //Remove me from Firebase when I diconnect
