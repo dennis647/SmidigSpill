@@ -320,6 +320,8 @@ function getRandomSafeSpot() {
         playerRef.update({
           collisionDetected: false,
         });
+      }
+    });
 
     //Update player color on button click
     playerColorButton.addEventListener("click", () => {
