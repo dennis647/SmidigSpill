@@ -99,6 +99,7 @@ function getRandomSafeSpot() {
   let playerElements = {};
   let coins = {};
   let coinElements = {};
+  let sum = 0;
 
   const gameContainer = document.querySelector(".game-container");
   const playerNameInput = document.querySelector("#player-name");
@@ -134,7 +135,8 @@ function getRandomSafeSpot() {
     if(mapData.returnPoint == key){
       console.log("Painting(s) saved!");
       const paintingsCollected = document.getElementById("Collected-Paintings");
-      paintingsCollected.innerHTML += players[playerId].coins;
+      sum += players[playerId].coins;
+      paintingsCollected.innerHTML = `Stolen Paintings: ${sum}`
       playerRef.update({
         coins: players[playerId].coins = 0,
       })
