@@ -144,22 +144,41 @@ function getRandomSafeSpot() {
     }
   }
 
+  function checkCollision(player1, player2){
+    return player1.x === player2.x && player1.y === player2.y
+}
+
   function handleArrowPress(xChange=0, yChange=0) {
     const newX = players[playerId].x + xChange;
     const newY = players[playerId].y + yChange;
-    if (!isSolid(newX, newY)) {
+
+    let collisionDetected = false;
+    Object.keys(players).forEach((key) => {
+      if (key !== playerId) {
+        const otherPlayer = players[key];
+        if (otherPlayer.x === newX && otherPlayer.y === newY){
+          collisionDetected = true;
+          console.log("Collision detected with player: ", key);
+        }
+      }
+    });
+
+    if ( !collisionDetected && !isSolid(newX, newY)) {
       //move to the next space
       players[playerId].x = newX;
       players[playerId].y = newY;
       if (xChange === 1) {
         players[playerId].direction = "right";
       }
-      if (xChange === -1) {
+      else if (xChange === -1) {
         players[playerId].direction = "left";
       }
       playerRef.set(players[playerId]);
       attemptGrabCoin(newX, newY);
       attemptReturn(newX,newY);
+      
+    } else{
+      console.log("Cannot move to position:", newX, newY)
     }
   }
 
