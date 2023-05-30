@@ -171,7 +171,7 @@ function getRandomSafeSpot() {
           }, 200);
 
           firebase.database().ref(`players/${pushedPlayerId}`).update({
-            coins: players[pushedPlayerId].coins = 0,})
+            coins: players[pushedPlayerId].coins = 0, collisionDetected: true})
         }
       }
     });
@@ -305,6 +305,21 @@ function getRandomSafeSpot() {
         name: newName
       })
     })
+
+    allPlayersRef.on("child_changed", (snapshot) => {
+      const changedPlayer = snapshot.val();
+      if (changedPlayer.id === playerId && changedPlayer.collisionDetected) {
+        // Perform red flash on the current player's client
+        const redFlash = document.getElementById("red-Flash");
+        redFlash.style.display = "block";
+        setTimeout(() => {
+          redFlash.style.display = "none";
+        }, 200);
+    
+        // Reset the collisionDetected flag
+        playerRef.update({
+          collisionDetected: false,
+        });
 
     //Update player color on button click
     playerColorButton.addEventListener("click", () => {
