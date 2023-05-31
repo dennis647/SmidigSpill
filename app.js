@@ -233,10 +233,6 @@ function getRandomSafeSpot() {
 
   function initGame() {
 
-    if (Object.keys(players).length === 1) {
-      placeCoin();
-    }
-
     new KeyPressListener("ArrowUp", () => handleArrowPress(0, -1))
     new KeyPressListener("ArrowDown", () => handleArrowPress(0, 1))
     new KeyPressListener("ArrowLeft", () => handleArrowPress(-1, 0))
@@ -373,6 +369,9 @@ function getRandomSafeSpot() {
 
     //Place my first coin
     //placeCoin();
+    if (Object.keys(players).length === 1) {
+      placeCoin();
+    }
 
   }
 
