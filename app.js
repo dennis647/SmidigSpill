@@ -253,14 +253,15 @@ function getRandomSafeSpot() {
     function updateScoreboard() {
       const scoreboardBody = document.getElementById("scoreboard-body");
       scoreboardBody.innerHTML = ""; // Clear existing scores
+
+      const sortedPlayers = Object.values(players).sort((a, b) => b.collectedPaintings - a.collectedPaintings);
     
-      Object.keys(players).forEach((key) => {
-        const player = players[key];
+      sortedPlayers.forEach((player) => {
         const row = document.createElement("tr");
         const playerNameCell = document.createElement("td");
         const scoreCell = document.createElement("td");
     
-        playerNameCell.textContent = player.name;
+        playerNameCell.textContent = player.name.toUpperCase();
         scoreCell.textContent = player.collectedPaintings;
     
         row.appendChild(playerNameCell);
