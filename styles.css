@@ -199,7 +199,8 @@ button:active {
   padding: 5px;
   background-color: #59FF5a;
   border-radius: 5px;
-  border-bottom: 2px solid black;
+  border-bottom: 3px solid black;
+  
 }
 
 #scoreboard-body{

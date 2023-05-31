@@ -263,7 +263,7 @@ function getRandomSafeSpot() {
         PlayerScoreCell.textContent = player.name.toUpperCase() + ": " + player.collectedPaintings;
     
         row.appendChild(PlayerScoreCell);
-        scoreboardBody.appendChild(row);
+        scoreboardBody.appendChild(row);  
       });
     }
     allPlayersRef.on("value", (snapshot) => {
