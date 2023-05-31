@@ -90,33 +90,6 @@ function getRandomSafeSpot() {
   ]);
 }
 
-function getCoinSpawn() {
-  return randomFromArray([
-    { x: 1, y: 4 },
-    { x: 2, y: 4 },
-    { x: 1, y: 5 },
-    { x: 2, y: 6 },
-    { x: 2, y: 8 },
-    { x: 2, y: 9 },
-    { x: 4, y: 8 },
-    { x: 5, y: 5 },
-    { x: 5, y: 8 },
-    { x: 5, y: 10 },
-    { x: 5, y: 11 },
-    { x: 11, y: 7 },
-    { x: 12, y: 7 },
-    { x: 13, y: 7 },
-    { x: 13, y: 6 },
-    { x: 13, y: 8 },
-    { x: 7, y: 6 },
-    { x: 7, y: 7 },
-    { x: 7, y: 8 },
-    { x: 8, y: 8 },
-    { x: 10, y: 8 },
-    { x: 8, y: 8 },
-    { x: 11, y: 4 },,
-  ]);
-}
 
 
 (function () {
@@ -133,7 +106,6 @@ function getCoinSpawn() {
   const gameContainer = document.querySelector(".game-container");
   const playerNameInput = document.querySelector("#player-name");
   const playerColorButton = document.querySelector("#player-color");
-
 
   function placeCoin() {
     const coinSpawnPoints = [
@@ -173,6 +145,7 @@ function getCoinSpawn() {
       }
     });
   }
+ 
 
   function attemptGrabCoin(x, y) {
     const key = getKeyString(x, y);
@@ -259,6 +232,10 @@ function getCoinSpawn() {
   }
 
   function initGame() {
+
+    if (Object.keys(players).length <= 1) {
+      placeCoin();
+    }
 
     new KeyPressListener("ArrowUp", () => handleArrowPress(0, -1))
     new KeyPressListener("ArrowDown", () => handleArrowPress(0, 1))
@@ -395,7 +372,7 @@ function getCoinSpawn() {
     })
 
     //Place my first coin
-    placeCoin();
+    //placeCoin();
 
   }
 
