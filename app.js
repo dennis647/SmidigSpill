@@ -369,7 +369,7 @@ function getRandomSafeSpot() {
 
     //Place my first coin
     //placeCoin();
-    if (Object.keys(players).length === 1) {
+    if (Object.keys(players).length <= 1) {
       placeCoin();
     }
 
