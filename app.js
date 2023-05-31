@@ -233,7 +233,7 @@ function getRandomSafeSpot() {
 
   function initGame() {
 
-    if (Object.keys(players).length <= 1) {
+    if (Object.keys(players).length === 1) {
       placeCoin();
     }
 
