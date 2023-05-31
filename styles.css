@@ -174,3 +174,35 @@ button:active {
 .Coin_shadow {
   background: url(/images/coin-shadow.png) no-repeat no-repeat;
 }
+
+#scoreboard {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  background-color: red;
+  border-radius: 50px;
+  padding: 10px;
+  align-items:  center;
+}
+
+#scoreboard table {
+  width: 100%;
+}
+
+#scoreboard th {
+  text-align: left;
+}
+
+#scoreboard td {
+  padding: 5px;
+}
+
+#scoreboard-body{
+  position: absolute;
+  top: 50px;
+  right: 5px;
+  background-color: red;
+  border-radius: 40px;
+  padding: 57px;
+  color: #222034;
+}

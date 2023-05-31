@@ -250,6 +250,24 @@ function getRandomSafeSpot() {
     const allPlayersRef = firebase.database().ref(`players`);
     const allCoinsRef = firebase.database().ref(`coins`);
 
+    function updateScoreboard() {
+      const scoreboardBody = document.getElementById("scoreboard-body");
+      scoreboardBody.innerHTML = ""; // Clear existing scores
+    
+      Object.keys(players).forEach((key) => {
+        const player = players[key];
+        const row = document.createElement("tr");
+        const playerNameCell = document.createElement("td");
+        const scoreCell = document.createElement("td");
+    
+        playerNameCell.textContent = player.name;
+        scoreCell.textContent = player.collectedPaintings;
+    
+        row.appendChild(playerNameCell);
+        row.appendChild(scoreCell);
+        scoreboardBody.appendChild(row);
+      });
+    }
     allPlayersRef.on("value", (snapshot) => {
       //Fires whenever a change occurs
       players = snapshot.val() || {};
@@ -263,7 +281,8 @@ function getRandomSafeSpot() {
         el.setAttribute("data-direction", characterState.direction);
         const left = 16 * characterState.x + "px";
         const top = 16 * characterState.y - 4 + "px";
-        el.style.transform = `translate3d(${left}, ${top}, 0)`;
+        el.style.transform = `translate3d(${left}, ${top}, 0)`;  
+        updateScoreboard()  
       })
     })
     allPlayersRef.on("child_added", (snapshot) => {
