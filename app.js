@@ -53,7 +53,7 @@ function isSolid(x,y) {
 
   const blockedNextSpace = mapData.blockedSpaces[getKeyString(x, y)];
   return (
-    blockedNextSpace ||
+    blockedNextSpace || 
     x >= mapData.maxX ||
     x < mapData.minX ||
     y >= mapData.maxY ||
@@ -277,7 +277,6 @@ function getCoinSpawn() {
     })
 
 
-    //New - not in the video!
     //This block will remove coins from local state when Firebase `coins` value updates
     allCoinsRef.on("value", (snapshot) => {
       coins = snapshot.val() || {};
