@@ -91,9 +91,30 @@ function getRandomSafeSpot() {
 }
 
 function getCoinSpawn() {
-  //We don't look things up by key here, so just return an x/y
   return randomFromArray([
     { x: 1, y: 4 },
+    { x: 2, y: 4 },
+    { x: 1, y: 5 },
+    { x: 2, y: 6 },
+    { x: 2, y: 8 },
+    { x: 2, y: 9 },
+    { x: 4, y: 8 },
+    { x: 5, y: 5 },
+    { x: 5, y: 8 },
+    { x: 5, y: 10 },
+    { x: 5, y: 11 },
+    { x: 11, y: 7 },
+    { x: 12, y: 7 },
+    { x: 13, y: 7 },
+    { x: 13, y: 6 },
+    { x: 13, y: 8 },
+    { x: 7, y: 6 },
+    { x: 7, y: 7 },
+    { x: 7, y: 8 },
+    { x: 8, y: 8 },
+    { x: 10, y: 8 },
+    { x: 8, y: 8 },
+    { x: 11, y: 4 },,
   ]);
 }
 
@@ -115,17 +136,42 @@ function getCoinSpawn() {
 
 
   function placeCoin() {
-    const { x, y } = getCoinSpawn();
-    const coinRef = firebase.database().ref(`coins/${getKeyString(x, y)}`);
-    coinRef.set({
-      x,
-      y,
-    })
-
-    const coinTimeouts = [2000, 3000, 4000, 5000];
-    setTimeout(() => {
-      placeCoin();
-    }, randomFromArray(coinTimeouts));
+    const coinSpawnPoints = [
+      { x: 1, y: 4 },
+      { x: 2, y: 4 },
+      { x: 1, y: 5 },
+      { x: 2, y: 6 },
+      { x: 2, y: 8 },
+      { x: 2, y: 9 },
+      { x: 4, y: 8 },
+      { x: 5, y: 5 },
+      { x: 5, y: 8 },
+      { x: 5, y: 10 },
+      { x: 5, y: 11 },
+      { x: 11, y: 7 },
+      { x: 12, y: 7 },
+      { x: 13, y: 7 },
+      { x: 13, y: 6 },
+      { x: 13, y: 8 },
+      { x: 7, y: 6 },
+      { x: 7, y: 7 },
+      { x: 7, y: 8 },
+      { x: 8, y: 8 },
+      { x: 10, y: 8 },
+      { x: 8, y: 8 },
+      { x: 11, y: 4 },
+    ];
+  
+    coinSpawnPoints.forEach((point) => {
+      const key = getKeyString(point.x, point.y);
+      if (!coins[key]) {
+        const coinRef = firebase.database().ref(`coins/${key}`);
+        coinRef.set({
+          x: point.x,
+          y: point.y,
+        });
+      }
+    });
   }
 
   function attemptGrabCoin(x, y) {
