@@ -179,10 +179,11 @@ button:active {
   position: absolute;
   top: 10px;
   right: 20px;
-  background-color: red;
-  border-radius: 50px;
+  background-color: #59FF5a;
+  border-radius: 5px;
   padding: 10px;
   align-items:  center;
+  border-bottom: 2px solid black;
 }
 
 #scoreboard table {
@@ -191,18 +192,22 @@ button:active {
 
 #scoreboard th {
   text-align: left;
+
 }
 
 #scoreboard td {
   padding: 5px;
+  background-color: #59FF5a;
+  border-radius: 5px;
+  border-bottom: 2px solid black;
 }
 
 #scoreboard-body{
   position: absolute;
   top: 50px;
   right: 5px;
-  background-color: red;
   border-radius: 40px;
-  padding: 57px;
-  color: #222034;
+  padding: 20px;
+  font-size: large;
+  
 }
