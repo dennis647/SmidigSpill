@@ -53,7 +53,7 @@ function isSolid(x,y) {
 
   const blockedNextSpace = mapData.blockedSpaces[getKeyString(x, y)];
   return (
-    blockedNextSpace ||
+    blockedNextSpace || 
     x >= mapData.maxX ||
     x < mapData.minX ||
     y >= mapData.maxY ||
