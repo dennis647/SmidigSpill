@@ -258,14 +258,11 @@ function getRandomSafeSpot() {
     
       sortedPlayers.forEach((player) => {
         const row = document.createElement("tr");
-        const playerNameCell = document.createElement("td");
-        const scoreCell = document.createElement("td");
+        const PlayerScoreCell = document.createElement("td");
     
-        playerNameCell.textContent = player.name.toUpperCase();
-        scoreCell.textContent = player.collectedPaintings;
+        PlayerScoreCell.textContent = player.name.toUpperCase() + ": " + player.collectedPaintings;
     
-        row.appendChild(playerNameCell);
-        row.appendChild(scoreCell);
+        row.appendChild(PlayerScoreCell);
         scoreboardBody.appendChild(row);
       });
     }
