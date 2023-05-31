@@ -90,6 +90,13 @@ function getRandomSafeSpot() {
   ]);
 }
 
+function getCoinSpawn() {
+  //We don't look things up by key here, so just return an x/y
+  return randomFromArray([
+    { x: 1, y: 4 },
+  ]);
+}
+
 
 (function () {
 
@@ -108,7 +115,7 @@ function getRandomSafeSpot() {
 
 
   function placeCoin() {
-    const { x, y } = getRandomSafeSpot();
+    const { x, y } = getCoinSpawn();
     const coinRef = firebase.database().ref(`coins/${getKeyString(x, y)}`);
     coinRef.set({
       x,
