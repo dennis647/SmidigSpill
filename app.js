@@ -145,7 +145,16 @@ function getRandomSafeSpot() {
       }
     });
   }
- 
+  
+  function removeCoins() {
+    const allCoinsRef = firebase.database().ref(`coins`);
+    allCoinsRef.once("value", (snapshot) => {
+      const coins = snapshot.val() || {};
+      Object.keys(coins).forEach((key) => {
+        firebase.database().ref(`coins/${key}`).remove();
+      });
+    });
+  }
 
   function attemptGrabCoin(x, y) {
     const key = getKeyString(x, y);
@@ -371,9 +380,16 @@ function getRandomSafeSpot() {
     //placeCoin();
     allCoinsRef.once("value", (snapshot) => {
       const coinsExist = snapshot.exists();
-      if (!coinsExist) {
+      if (!coinsExist || Object.keys(players).length === 1) {
         // No coins exist, so we can place them
         placeCoin();
+      }
+    });
+
+    allPlayersRef.on("value", (snapshot) => {
+      const players = snapshot.val() || {};
+      if (Object.keys(players).length === 0) {
+        removeCoins();
       }
     });
 
