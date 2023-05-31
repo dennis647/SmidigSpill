@@ -369,9 +369,13 @@ function getRandomSafeSpot() {
 
     //Place my first coin
     //placeCoin();
-    if (Object.keys(players).length <= 1) {
-      placeCoin();
-    }
+    allCoinsRef.once("value", (snapshot) => {
+      const coinsExist = snapshot.exists();
+      if (!coinsExist) {
+        // No coins exist, so we can place them
+        placeCoin();
+      }
+    });
 
   }
 
