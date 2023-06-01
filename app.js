@@ -157,14 +157,25 @@ function getRandomSafeSpot() {
   }
 
   function attemptGrabCoin(x, y) {
+    
     const key = getKeyString(x, y);
+    const errorMsg = document.getElementById("errorMsg");
+
     if (coins[key]) {
+      if (players[playerId].coins <= 2) {
       // Remove this key from data, then uptick Player's coin count
       firebase.database().ref(`coins/${key}`).remove();
       playerRef.update({
         coins: players[playerId].coins + 1,
       })
-    }
+    } else {
+    errorMsg.style.display = `block`;
+    errorMsg.innerHTML = `Du har nådd maks antall bilder du kan bære!`;
+    setTimeout(() => {
+      errorMsg.style.display = `none`;
+    }, 1500);
+  }
+  } 
   }
   function attemptReturn(x, y){
     const key = getKeyString(x,y);

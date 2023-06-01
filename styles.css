@@ -212,3 +212,12 @@ button:active {
   font-size: large;
   margin:50px;
 }
+
+#errorMsg {
+  position: fixed;
+  align-items: center;
+  left: 560px;
+  top: 170px;
+  padding: 5px;
+  display: none;
+}
