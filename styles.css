@@ -174,50 +174,38 @@ button:active {
 .Coin_shadow {
   background: url(/images/coin-shadow.png) no-repeat no-repeat;
 }
-
 #scoreboard {
   position: absolute;
-  top: 10px;
+  text-align: center;
+  top: 15px;
   right: 20px;
-  background-color: #59FF5a;
-  border-radius: 5px;
   padding: 10px;
-  align-items:  center;
-  border-bottom: 2px solid black;
-}
-
-#scoreboard table {
-  width: 100%;
+  align-items: center;
+  width: 200px; /* Adjust the width as needed */
+  font-size: 18px;
 }
 
 #scoreboard th {
-  text-align: left;
-
+  text-align: center;
+  font-size: 18px;
 }
 
 #scoreboard td {
-  padding: 5px;
-  background-color: #59FF5a;
-  border-radius: 5px;
-  border-bottom: 3px solid black;
-  
-}
 
-#scoreboard-body{
-  position: absolute;
-  top: 50px;
-  right: 5px;
-  border-radius: 40px;
-  padding: 20px;
+  padding: 10px;
+  background-color: #59FF5A;
+  border-radius: 8px;
+  border-bottom: 2px solid black;
   font-size: large;
-  margin:50px;
+  margin-bottom: 10px;
+  font-size: 18px;
+
 }
 
-#errorMsg {
-  position: fixed;
-  align-items: center;
-  left: 560px;
-  top: 170px;
-  padding: 5px;
-  display: none;
+.player-score {
+  margin-right: 10px;
+}
+
+#scoreboard-body .player-score {
+  margin-left: 10px;
 }
