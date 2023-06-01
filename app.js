@@ -21,6 +21,8 @@ const mapData = {
 
 // Sound-fx and music
 const music = new Audio('/music/smooth-groove-10312.mp3');
+const caching = new Audio('/sounds/caching.mp3');
+const moveFx = new Audio('/sounds/move.mp3');
 const muteCheckbox = document.getElementById("musicToggle");
 
 // Options for Player Colors... these are in the same order as our sprite sheet
@@ -186,6 +188,7 @@ function getRandomSafeSpot() {
   function attemptReturn(x, y){
     const key = getKeyString(x,y);
     if(mapData.returnPoint == key){
+      caching.play();
       console.log("Painting(s) saved!");
       const paintingsCollected = document.getElementById("collected-paintings");
       sum += players[playerId].coins;
@@ -206,6 +209,7 @@ function getRandomSafeSpot() {
   function handleArrowPress(xChange=0, yChange=0) {
     const newX = players[playerId].x + xChange;
     const newY = players[playerId].y + yChange;
+    moveFx.play();
 
     let collisionDetected = false;
     Object.keys(players).forEach((key) => {
@@ -259,7 +263,7 @@ function getRandomSafeSpot() {
   }
 
   function initGame() {
-    music.play();
+    music.muted = false;
     muteCheckbox.addEventListener('change', function() {
       if (muteCheckbox.checked) {
         music.muted = true;
@@ -268,6 +272,7 @@ function getRandomSafeSpot() {
         music.play();
       }
     });
+    
     new KeyPressListener("ArrowUp", () => handleArrowPress(0, -1))
     new KeyPressListener("ArrowDown", () => handleArrowPress(0, 1))
     new KeyPressListener("ArrowLeft", () => handleArrowPress(-1, 0))
