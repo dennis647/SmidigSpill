@@ -376,6 +376,14 @@ function getRandomSafeSpot() {
         "/images/art5.png",
         "/images/art6.png",
         "/images/art7.png",
+        "/images/art8.png",
+        "/images/art9.png",
+        "/images/art10.png",
+        "/images/art11.png",
+        "/images/art12.png",
+        "/images/art13.png",
+        "/images/art14.png",
+        "/images/art15.png",
         // Add more PNG image paths or URLs as needed
       ];
     
