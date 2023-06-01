@@ -279,17 +279,18 @@ function getRandomSafeSpot() {
     function updateScoreboard() {
       const scoreboardBody = document.getElementById("scoreboard-body");
       scoreboardBody.innerHTML = ""; // Clear existing scores
-
+    
       const sortedPlayers = Object.values(players).sort((a, b) => b.collectedPaintings - a.collectedPaintings);
     
       sortedPlayers.forEach((player) => {
         const row = document.createElement("tr");
-        const PlayerScoreCell = document.createElement("td");
+        const playerScoreCell = document.createElement("td");
     
-        PlayerScoreCell.textContent = player.name.toUpperCase() + ": " + player.collectedPaintings;
+        playerScoreCell.textContent = player.name.toUpperCase() + ":  " + " "+ player.collectedPaintings;
+        playerScoreCell.classList.add("player-score");
     
-        row.appendChild(PlayerScoreCell);
-        scoreboardBody.appendChild(row);  
+        row.appendChild(playerScoreCell);
+        scoreboardBody.appendChild(row);
       });
     }
     allPlayersRef.on("value", (snapshot) => {
