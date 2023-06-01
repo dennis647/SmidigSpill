@@ -162,6 +162,7 @@ function getRandomSafeSpot() {
     });
   }
 
+
   function attemptGrabCoin(x, y) {
     
     const key = getKeyString(x, y);
@@ -188,7 +189,9 @@ function getRandomSafeSpot() {
   function attemptReturn(x, y){
     const key = getKeyString(x,y);
     if(mapData.returnPoint == key){
-      caching.play();
+      if(players[playerId].coins >= 1){
+        caching.play();
+      }
       console.log("Painting(s) saved!");
       const paintingsCollected = document.getElementById("collected-paintings");
       sum += players[playerId].coins;
@@ -209,7 +212,7 @@ function getRandomSafeSpot() {
   function handleArrowPress(xChange=0, yChange=0) {
     const newX = players[playerId].x + xChange;
     const newY = players[playerId].y + yChange;
-    moveFx.play();
+    
 
     let collisionDetected = false;
     Object.keys(players).forEach((key) => {
@@ -247,6 +250,7 @@ function getRandomSafeSpot() {
       //move to the next space
       players[playerId].x = newX;
       players[playerId].y = newY;
+      moveFx.play();
       if (xChange === 1) {
         players[playerId].direction = "right";
       }
@@ -365,12 +369,24 @@ function getRandomSafeSpot() {
       const key = getKeyString(coin.x, coin.y);
       coins[key] = true;
 
+      const coinSprites = [
+        "/images/art1.png",
+        "/images/art2.png",
+        "/images/art5.png",
+        "/images/art6.png",
+        "/images/art7.png",
+        // Add more PNG image paths or URLs as needed
+      ];
+    
+    const randomIndex = Math.floor(Math.random() * coinSprites.length);
+    const selectedCoinSprite = coinSprites[randomIndex];
+
       // Create the DOM Element
       const coinElement = document.createElement("div");
       coinElement.classList.add("Coin", "grid-cell");
       coinElement.innerHTML = `
         <div class="Coin_shadow grid-cell"></div>
-        <div class="Coin_sprite grid-cell"></div>
+        <img src="${selectedCoinSprite}" class="Coin_sprite grid-cell"/>
       `;
 
       // Position the Element
