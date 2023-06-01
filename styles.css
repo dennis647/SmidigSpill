@@ -221,3 +221,15 @@ button:active {
   padding: 5px;
   display: none;
 }
+
+#musicToggle {
+  position: absolute;
+  top:25px;
+  right:25px;
+  transform:scale(3);
+  z-index: 1;
+  content: url('/images/unmute.png');
+}
+#musicToggle:checked{
+  content: url('/images/mute.jpg');
+}

@@ -19,6 +19,10 @@ const mapData = {
   },
 };
 
+// Sound-fx and music
+const music = new Audio('/music/smooth-groove-10312.mp3');
+const muteCheckbox = document.getElementById("musicToggle");
+
 // Options for Player Colors... these are in the same order as our sprite sheet
 const playerColors = ["blue", "red", "orange", "yellow", "green", "purple"];
 
@@ -163,6 +167,8 @@ function getRandomSafeSpot() {
 
     if (coins[key]) {
       if (players[playerId].coins <= 2) {
+      const pickupFx = new Audio('/Sounds/paper.mp3');
+      pickupFx.play();
       // Remove this key from data, then uptick Player's coin count
       firebase.database().ref(`coins/${key}`).remove();
       playerRef.update({
@@ -253,7 +259,15 @@ function getRandomSafeSpot() {
   }
 
   function initGame() {
-
+    music.play();
+    muteCheckbox.addEventListener('change', function() {
+      if (muteCheckbox.checked) {
+        music.muted = true;
+      } else {
+        music.muted = false;
+        music.play();
+      }
+    });
     new KeyPressListener("ArrowUp", () => handleArrowPress(0, -1))
     new KeyPressListener("ArrowDown", () => handleArrowPress(0, 1))
     new KeyPressListener("ArrowLeft", () => handleArrowPress(-1, 0))
