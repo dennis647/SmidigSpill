@@ -23,6 +23,7 @@ const mapData = {
 const music = new Audio('/music/smooth-groove-10312.mp3');
 const caching = new Audio('/sounds/caching.mp3');
 const moveFx = new Audio('/sounds/move.mp3');
+const pushFx = new Audio('/sounds/whoosh.mp3');
 const muteCheckbox = document.getElementById("musicToggle");
 
 // Options for Player Colors... these are in the same order as our sprite sheet
@@ -222,7 +223,7 @@ function getRandomSafeSpot() {
           collisionDetected = true;
           pushedPlayerId = key
           console.log("Collision detected with player ", key);
-
+          pushFx.play();
           const redFlash = document.getElementById("red-Flash");  
           redFlash.style.display = 'block';
           setTimeout(() => {
