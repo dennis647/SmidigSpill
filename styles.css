@@ -169,7 +169,7 @@ button:active {
 }
 @keyframes coinFloat {
   from { transform: translateY(0) }
-  to { transform: translateY(5px) }
+  to { transform: translateY(1px) }
 }
 .Coin_shadow {
   background: url(/images/coin-shadow.png) no-repeat no-repeat;
