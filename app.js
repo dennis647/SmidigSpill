@@ -215,8 +215,7 @@ function getRandomSafeSpot() {
           setTimeout(() => {
           redFlash.style.display = 'none';
           }, 200);
-          const collisionSound = new Audio('/sounds/Oof.mp3');
-          collisionSound.play();
+          
 
           if(players[pushedPlayerId].coins >= 1) {
           firebase.database().ref(`players/${pushedPlayerId}`).update({
@@ -386,6 +385,8 @@ function getRandomSafeSpot() {
         // Perform red flash on the current player's client
         const redFlash = document.getElementById("red-Flash");
         redFlash.style.display = "block";
+        const collisionSound = new Audio('/sounds/Oof.mp3');
+        collisionSound.play();
         setTimeout(() => {
           redFlash.style.display = "none";
         }, 200);
