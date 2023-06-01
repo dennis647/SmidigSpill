@@ -266,7 +266,7 @@ function getRandomSafeSpot() {
       console.log("Cannot move to position:", newX, newY)
     }
   }
-
+  
   function initGame() {
     music.muted = false;
     muteCheckbox.addEventListener('change', function() {
@@ -277,11 +277,75 @@ function getRandomSafeSpot() {
         music.play();
       }
     });
+
+    let spacePressed = false;
+    let lastSpacePressTime = 0;
+    let actionPerformed = false;
+    const pressCooldown = 10000;
+
+    new KeyPressListener("Space", () => {
+      const currentTime = Date.now();
+      const elapsedTime = currentTime - lastSpacePressTime;
+      
+      if (!spacePressed && elapsedTime >= pressCooldown) {
+        spacePressed = true;
+        lastSpacePressTime = currentTime;
+      }
+    });
+
+    new KeyPressListener("ArrowDown", () => {
+      if (spacePressed === false) {
+      handleArrowPress(0, 1)
+      } if (spacePressed === true || !spacePressed && pressCooldown === 0) {
+      handleArrowPress(0, 2);
+      spacePressed = false;
+
+    }
+  });
+
+    new KeyPressListener("ArrowLeft", () => {
+    if (spacePressed === false) {
+      handleArrowPress(-1, 0);
+    } if (spacePressed === true || !spacePressed && pressCooldown === 0) {
+      handleArrowPress(-2, 0);
+      spacePressed = false;
+    }
+  });
+
+    new KeyPressListener("ArrowRight", () => {
+      if (spacePressed === false) {
+        handleArrowPress(1, 0);
+        spacePressed = false;
+      } if (spacePressed === true || !spacePressed && pressCooldown === 0) {
+      handleArrowPress(2, 0);
+      spacePressed = false;
+    }
+  });
+
+    new KeyPressListener("ArrowUp", () => {
+      if (spacePressed === false) {
+        handleArrowPress(0, -1);
+      } if (spacePressed === true || !spacePressed && pressCooldown === 0) {
+        handleArrowPress(0, -2);
+        spacePressed = false;
+      }
+    });
+
+    function updateCooldownDisplay() {
+      const currentTime = Date.now();
+      const elapsedTime = currentTime - lastSpacePressTime;
+      const remainingTime = pressCooldown - elapsedTime;
+      
+      const seconds = Math.ceil(remainingTime / 1000); // Convert to seconds and round up
+      
+      if (seconds > 0) {
+        console.log(`Cooldown remaining: ${seconds} seconds`);
+        // Update the UI or perform any desired actions with the remaining time
+      }
+    }
     
-    new KeyPressListener("ArrowUp", () => handleArrowPress(0, -1))
-    new KeyPressListener("ArrowDown", () => handleArrowPress(0, 1))
-    new KeyPressListener("ArrowLeft", () => handleArrowPress(-1, 0))
-    new KeyPressListener("ArrowRight", () => handleArrowPress(1, 0))
+    setInterval(updateCooldownDisplay, 1000);
+
 
     const allPlayersRef = firebase.database().ref(`players`);
     const allCoinsRef = firebase.database().ref(`coins`);
