@@ -290,19 +290,18 @@ function getRandomSafeSpot() {
   window.onload = function() {
      setTimeout(
       function() {
-
-    const viewport = document.querySelector(".viewport");
-    const cellSize = 128; // Adjust this value according to your game grid cell size
-    const viewportLeft = players[playerId].x * cellSize;
-    const viewportTop = players[playerId].y * cellSize;
-      viewport.style.left = `${-viewportLeft}px`;
-      viewport.style.top = `${-viewportTop}px`;
+        music.play();
+        const viewport = document.querySelector(".viewport");
+        const cellSize = 128; // Adjust this value according to your game grid cell size
+        const viewportLeft = players[playerId].x * cellSize;
+        const viewportTop = players[playerId].y * cellSize;
+        viewport.style.left = `${-viewportLeft}px`;
+        viewport.style.top = `${-viewportTop}px`;
       }, 850)
-  }
+  } 
   
   // INIT GAME //
   function initGame() {
-    music.muted = false;
     muteCheckbox.addEventListener('change', function() {
       if (muteCheckbox.checked) {
         music.muted = true;
@@ -332,7 +331,7 @@ function getRandomSafeSpot() {
       handleArrowPress(0, 1)
       } if (spacePressed === true || !spacePressed && pressCooldown === 0) {
         dashFx.play();
-        handleArrowPress(0, 2);
+        handleArrowPress(0, 3);
         spacePressed = false;
 
     }
