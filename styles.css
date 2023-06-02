@@ -214,7 +214,8 @@ button:active {
 }
 
 #scoreboard td {
-
+  font-family: 'Source Sans Pro', sans-serif;;
+  font-weight: bolder;
   padding: 10px;
   background-color: #fe390f  ;
   border-radius: 8px;
