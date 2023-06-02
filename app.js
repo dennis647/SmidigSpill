@@ -286,6 +286,19 @@ function getRandomSafeSpot() {
       console.log("Cannot move to position:", newX, newY)
     }
   }
+
+  window.onload = function() {
+     setTimeout(
+      function() {
+
+    const viewport = document.querySelector(".viewport");
+    const cellSize = 128; // Adjust this value according to your game grid cell size
+    const viewportLeft = players[playerId].x * cellSize;
+    const viewportTop = players[playerId].y * cellSize;
+      viewport.style.left = `${-viewportLeft}px`;
+      viewport.style.top = `${-viewportTop}px`;
+      }, 850)
+  }
   
   function initGame() {
     music.muted = false;
