@@ -99,6 +99,9 @@ function getRandomSafeSpot() {
 
 
 
+
+
+
 (function () {
 
   let playerId;
@@ -110,6 +113,7 @@ function getRandomSafeSpot() {
   let sum = 0;
   let allPlayersRef = {};
 
+  
   const gameContainer = document.querySelector(".game-container");
   const playerNameInput = document.querySelector("#player-name");
   const playerColorButton = document.querySelector("#player-color");
@@ -262,6 +266,21 @@ function getRandomSafeSpot() {
       attemptGrabCoin(newX, newY);
       attemptReturn(newX,newY);
       
+      // Adjust viewport position based on character's position
+      const viewport = document.querySelector(".viewport");
+      const cellSize = 128; // Adjust this value according to your game grid cell size
+
+      const viewportLeft = players[playerId].x * cellSize;
+      const viewportTop = players[playerId].y * cellSize;
+       // Add animation transition to the viewport
+      viewport.style.transition = "left 0.5s ease, top 0.5s ease";
+      viewport.style.left = `${-viewportLeft}px`;
+      viewport.style.top = `${-viewportTop}px`;
+
+      // Remove animation transition after it finishes
+      setTimeout(() => {
+        viewport.style.transition = "";
+      }, 500);
     } else{
       console.log("Cannot move to position:", newX, newY)
     }
@@ -345,7 +364,7 @@ function getRandomSafeSpot() {
     }
     
     setInterval(updateCooldownDisplay, 1000);
-
+    
 
     const allPlayersRef = firebase.database().ref(`players`);
     const allCoinsRef = firebase.database().ref(`coins`);
@@ -532,7 +551,23 @@ function getRandomSafeSpot() {
         removeCoins();
       }
     });
+    window.addEventListener("keydown", function(e) {
+      if(["Space","ArrowUp","ArrowDown","ArrowLeft","ArrowRight"].indexOf(e.code) > -1) {
+          e.preventDefault();
+      }
+  }, false);
 
+    /*function updateCamera(pX, pY){
+      const width = gameContainer.offsetWidth;
+      const height = gameContainer.offsetHeight;
+      const camX = pX;
+      const camY = pY;
+      gameContainer.style.transform = `translate3d(${-camX}px, ${-camY}px, 0)`;
+      /*CamX = x;
+      CamY = y;
+      gameContainer.style.transform = `translate3d(${camX}px, ${camY}px, 0)`;
+    }
+    setInterval(updateCamera(playerRef.x , playerRef.y), 100);*/
   }
 
   firebase.auth().onAuthStateChanged((user) => {

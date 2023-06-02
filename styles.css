@@ -2,6 +2,15 @@
   box-sizing:border-box;
 }
 
+.viewport {
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform-origin: 0 0;
+  scroll-behavior: smooth;
+}
+
+
 html, body {
   margin: 0;
   padding: 0;
@@ -18,7 +27,7 @@ html, body {
   width: 240px;
   height: 208px;
   background: url(/images/map.png) no-repeat no-repeat;
-  transform: scale(3);
+  transform: scale(8);
   image-rendering: pixelated;
 }
 .redflash{
