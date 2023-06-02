@@ -360,9 +360,11 @@ function getRandomSafeSpot() {
       
       if (seconds > 0) {
         powerupCooldown.innerHTML = (`Powerup cooldown: ${seconds}s`);
+        powerupCooldown.style.background = `#9a240a`;
         // Update the UI or perform any desired actions with the remaining time
       } else if (seconds <= 1) {
         powerupCooldown.innerHTML = (`Powerup is ready!`);
+        powerupCooldown.style.background = `#fe390f`;
       }
     }
     
