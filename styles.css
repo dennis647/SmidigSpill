@@ -228,9 +228,10 @@ button:active {
 #errorMsg {
   position: fixed;
   align-items: center;
-  left: 560px;
-  top: 170px;
+  left: 540px;
+  top: 350px;
   padding: 5px;
+  background-color: rgba(255, 255, 255, 0.26);
   display: none;
 }
 

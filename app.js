@@ -24,6 +24,7 @@ const music = new Audio('/music/smooth-groove-10312.mp3');
 const caching = new Audio('/sounds/caching.mp3');
 const moveFx = new Audio('/sounds/move.mp3');
 const pushFx = new Audio('/sounds/whoosh.mp3');
+const dashFx = new Audio('/sounds/dash.mp3');
 const muteCheckbox = document.getElementById("musicToggle");
 
 // Options for Player Colors... these are in the same order as our sprite sheet
@@ -316,8 +317,9 @@ function getRandomSafeSpot() {
       if (spacePressed === false) {
       handleArrowPress(0, 1)
       } if (spacePressed === true || !spacePressed && pressCooldown === 0) {
-      handleArrowPress(0, 2);
-      spacePressed = false;
+        dashFx.play();
+        handleArrowPress(0, 2);
+        spacePressed = false;
 
     }
   });
@@ -326,6 +328,7 @@ function getRandomSafeSpot() {
     if (spacePressed === false) {
       handleArrowPress(-1, 0);
     } if (spacePressed === true || !spacePressed && pressCooldown === 0) {
+      dashFx.play();
       handleArrowPress(-2, 0);
       spacePressed = false;
     }
@@ -336,8 +339,9 @@ function getRandomSafeSpot() {
         handleArrowPress(1, 0);
         spacePressed = false;
       } if (spacePressed === true || !spacePressed && pressCooldown === 0) {
-      handleArrowPress(2, 0);
-      spacePressed = false;
+        dashFx.play();
+        handleArrowPress(2, 0);
+        spacePressed = false;
     }
   });
 
@@ -345,6 +349,7 @@ function getRandomSafeSpot() {
       if (spacePressed === false) {
         handleArrowPress(0, -1);
       } if (spacePressed === true || !spacePressed && pressCooldown === 0) {
+        dashFx.play();
         handleArrowPress(0, -2);
         spacePressed = false;
       }
