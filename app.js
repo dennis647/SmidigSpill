@@ -300,7 +300,7 @@ function getRandomSafeSpot() {
     let spacePressed = false;
     let lastSpacePressTime = 0;
     let actionPerformed = false;
-    const pressCooldown = 10000;
+    const pressCooldown = 5000;
 
     new KeyPressListener("Space", () => {
       const currentTime = Date.now();
