@@ -354,12 +354,15 @@ function getRandomSafeSpot() {
       const currentTime = Date.now();
       const elapsedTime = currentTime - lastSpacePressTime;
       const remainingTime = pressCooldown - elapsedTime;
+      const powerupCooldown = document.getElementById("powerup-cooldown");
       
       const seconds = Math.ceil(remainingTime / 1000); // Convert to seconds and round up
       
       if (seconds > 0) {
-        console.log(`Cooldown remaining: ${seconds} seconds`);
+        powerupCooldown.innerHTML = (`Powerup cooldown: ${seconds}s`);
         // Update the UI or perform any desired actions with the remaining time
+      } else if (seconds <= 1) {
+        powerupCooldown.innerHTML = (`Powerup is ready!`);
       }
     }
     
