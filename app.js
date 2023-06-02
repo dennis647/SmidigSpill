@@ -287,6 +287,7 @@ function getRandomSafeSpot() {
     }
   }
   
+  // INIT GAME //
   function initGame() {
     music.muted = false;
     muteCheckbox.addEventListener('change', function() {
@@ -329,7 +330,7 @@ function getRandomSafeSpot() {
       handleArrowPress(-1, 0);
     } if (spacePressed === true || !spacePressed && pressCooldown === 0) {
       dashFx.play();
-      handleArrowPress(-2, 0);
+      handleArrowPress(-3, 0);
       spacePressed = false;
     }
   });
@@ -340,7 +341,7 @@ function getRandomSafeSpot() {
         spacePressed = false;
       } if (spacePressed === true || !spacePressed && pressCooldown === 0) {
         dashFx.play();
-        handleArrowPress(2, 0);
+        handleArrowPress(3, 0);
         spacePressed = false;
     }
   });
@@ -350,7 +351,7 @@ function getRandomSafeSpot() {
         handleArrowPress(0, -1);
       } if (spacePressed === true || !spacePressed && pressCooldown === 0) {
         dashFx.play();
-        handleArrowPress(0, -2);
+        handleArrowPress(0, -3);
         spacePressed = false;
       }
     });
