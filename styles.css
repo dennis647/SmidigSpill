@@ -92,7 +92,7 @@ button:active {
 }
 #collected-paintings{
   position: relative;
-  top: 45px;
+  top: 60px;
   left: -290px;
   padding-left: 0.4em;
   padding-right: 0.4em;
@@ -106,7 +106,7 @@ button:active {
 #powerup-cooldown {
   position: relative;
   top: 100px;
-  left: -190px;
+  left: -440px;
   padding-left: 0.4em;
   padding-right: 0.4em;
   padding-top: 0.4em;
