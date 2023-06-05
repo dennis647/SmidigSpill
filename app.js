@@ -219,7 +219,7 @@ function getRandomSafeSpot() {
     const newX = players[playerId].x + xChange;
     const newY = players[playerId].y + yChange;
     
-
+    
     let collisionDetected = false;
     Object.keys(players).forEach((key) => {
       if (key !== playerId) {
@@ -271,6 +271,8 @@ function getRandomSafeSpot() {
       const viewport = document.querySelector(".viewport");
       const cellSize = 128; // Adjust this value according to your game grid cell size
 
+      const characterElement = playerElements[playerId];
+      characterElement.classList.add("bobbingAnimation");  
       const viewportLeft = players[playerId].x * cellSize;
       const viewportTop = players[playerId].y * cellSize;
        // Add animation transition to the viewport
@@ -281,6 +283,7 @@ function getRandomSafeSpot() {
       // Remove animation transition after it finishes
       setTimeout(() => {
         viewport.style.transition = "";
+        characterElement.classList.remove("bobbingAnimation");
       }, 500);
     } else{
       console.log("Cannot move to position:", newX, newY)
@@ -338,13 +341,13 @@ function getRandomSafeSpot() {
   });
 
     new KeyPressListener("ArrowLeft", () => {
-    if (spacePressed === false) {
-      handleArrowPress(-1, 0);
-    } if (spacePressed === true || !spacePressed && pressCooldown === 0) {
-      dashFx.play();
-      handleArrowPress(-3, 0);
-      spacePressed = false;
-    }
+      if (spacePressed === false) {
+        handleArrowPress(-1, 0);
+      } if (spacePressed === true || !spacePressed && pressCooldown === 0) {
+        dashFx.play();
+        handleArrowPress(-3, 0);
+        spacePressed = false;
+      }
   });
 
     new KeyPressListener("ArrowRight", () => {

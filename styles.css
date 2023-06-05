@@ -148,6 +148,22 @@ button:active {
 .Character[data-direction="right"] .Character_sprite {
   background-position-x: 16px;
 }
+.bobbingAnimation {
+  animation: bobbing 0.5s  ease-in-out infinite;
+}
+
+@keyframes bobbing {
+  0% {
+    margin-top: 0;
+  }
+  50% {
+    margin-top: -1px;
+  }
+  100% {
+    margin-top: 0;
+  }
+}
+
 .Character[data-color="red"] .Character_sprite {
   background-position-y: -16px;
 }
