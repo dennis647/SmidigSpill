@@ -10,7 +10,9 @@
   scroll-behavior: smooth;
   transition: left 0.5s ease, top 0.5s ease;
 }
-
+body{
+  overflow: hidden;
+}
 
 html, body {
   margin: 0;
@@ -164,10 +166,6 @@ button:active {
   }
 }
 
-@keyframes tilt {
-  from { transition: rotate(-20deg) }
-  to { transition: rotate(200deg) }
-}
 
 .Character[data-color="red"] .Character_sprite {
   background-position-y: -16px;
