@@ -380,7 +380,7 @@ function getRandomSafeSpot() {
       const seconds = Math.ceil(remainingTime / 1000); // Convert to seconds and round up
       
       if (seconds > 0) {
-        powerupCooldown.innerHTML = (`Powerup cooldown: ${seconds}s`);
+        powerupCooldown.innerHTML = (`${seconds}s`);
         powerupCooldown.style.background = `#9a240a`;
         // Update the UI or perform any desired actions with the remaining time
       } else if (seconds <= 1) {

@@ -218,6 +218,7 @@ button:active {
   background: url(/images/shadow.png) no-repeat no-repeat;
 }
 #scoreboard {
+  background-color: rgba(255, 255, 255, 0.242);
   position: absolute;
   text-align: center;
   top: 15px;
