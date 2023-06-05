@@ -192,10 +192,11 @@ button:active {
 }
 @keyframes coinFloat {
   from { transform: translateY(0) }
-  to { transform: translateY(1px) }
+  to { transform: translateY(0.3px) }
 }
 .Coin_shadow {
-  background: url(/images/coin-shadow.png) no-repeat no-repeat;
+  top: 5px;
+  background: url(/images/shadow.png) no-repeat no-repeat;
 }
 #scoreboard {
   position: absolute;
