@@ -751,6 +751,21 @@ function getRandomSafeSpot() {
       coins: guardData.coins
 
   });
+
+  firebase.database().ref('guard').on('value', (snapshot) => {
+    const guardPosition = snapshot.val();
+    if (guardPosition) {
+      guardData.x = guardPosition.x;
+      guardData.y = guardPosition.y;
+      const guardElement = playerElements[guardData.id];
+      const left = 16 * guardData.x + 'px';
+      const top = 16 * guardData.y - 4 + 'px';
+      guardElement.style.transform = `translate3d(${left}, ${top}, 0)`;
+    }
+  });
+
+
+
     }
   }
 
@@ -765,8 +780,6 @@ function getRandomSafeSpot() {
     // ...
     console.log(errorCode, errorMessage);
   });
-
-
 
 })();
 
