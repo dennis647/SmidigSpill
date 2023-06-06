@@ -742,7 +742,7 @@ function getRandomSafeSpot() {
   }
     }
 
-    setInterval(moveGuardRandomly, 1000);
+    setInterval(moveGuardRandomly, 500);
   }
 
   setUpAndStartGuard();
