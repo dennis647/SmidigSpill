@@ -721,7 +721,9 @@ function getRandomSafeSpot() {
       collisionDetected = true;
       collidedPlayerId = key;
       const collisionSound = new Audio('/sounds/Oof.mp3');
-      collisionSound.play();
+      if (pushedPlayerId === playerId) {
+        collisionSound.play();
+      }
 
       // Remove a coin from the collided player if they have any
       if (players[collidedPlayerId].coins > 0) {
@@ -764,7 +766,7 @@ function getRandomSafeSpot() {
     }
   }
 
-    setInterval(moveGuardRandomly, 500);
+    setInterval(moveGuardRandomly, 850);
   }
 
   setUpAndStartGuard();
