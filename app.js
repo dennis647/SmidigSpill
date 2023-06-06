@@ -660,7 +660,7 @@ function getRandomSafeSpot() {
   guardElement.innerHTML = `
     <div class="Character_shadow grid-cell"></div>
     <img src="/images/guard.png" class="grid-cell"/>
-    <div class="Character_name-container">
+    <div class="Guard_name-container">
       <span class="Character_name">${guardData.name}</span>
     </div>
     <div class="Character_you-arrow"></div>
