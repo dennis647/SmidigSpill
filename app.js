@@ -335,7 +335,7 @@ function getRandomSafeSpot() {
       const elapsedTime = currentTime - lastSpacePressTime;
 
       if (!spacePressed && elapsedTime >= pressCooldown) {
-        spacePressed = true;
+        spacePressed = true;  
         lastSpacePressTime = currentTime;
       }
     });
@@ -662,7 +662,6 @@ function getRandomSafeSpot() {
     <img src="/images/guard.png" class="grid-cell"/>
     <div class="Character_name-container">
       <span class="Character_name">${guardData.name}</span>
-      <span class="Character_coins">${guardData.coins}</span>
     </div>
     <div class="Character_you-arrow"></div>
   `;
@@ -740,15 +739,13 @@ function getRandomSafeSpot() {
   if (!collisionDetected && !isSolid(newX, newY)) {
     guardData.x = newX;
     guardData.y = newY;
-    guardElement.querySelector(".Character_coins").innerText = guardData.coins;
 
     const left = 16 * guardData.x + "px";
     const top = 16 * guardData.y - 4 + "px";
     guardElement.style.transform = `translate3d(${left}, ${top}, 0)`;
     firebase.database().ref('guard').set({
       x: guardData.x,
-      y: guardData.y,
-      coins: guardData.coins
+      y: guardData.y
 
   });
 
