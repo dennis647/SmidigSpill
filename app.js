@@ -113,9 +113,6 @@ function getRandomSafeSpot() {
 
 
 
-
-
-
 (function () {
 
   let playerId;
@@ -748,8 +745,14 @@ function getRandomSafeSpot() {
     const left = 16 * guardData.x + "px";
     const top = 16 * guardData.y - 4 + "px";
     guardElement.style.transform = `translate3d(${left}, ${top}, 0)`;
-  }
+    firebase.database().ref('guard').set({
+      x: guardData.x,
+      y: guardData.y,
+      coins: guardData.coins
+
+  });
     }
+  }
 
     setInterval(moveGuardRandomly, 1000);
   }
@@ -764,4 +767,8 @@ function getRandomSafeSpot() {
   });
 
 
+
 })();
+
+
+
