@@ -232,3 +232,32 @@ h2 {
     transform: translate(-50%, -50%);
   }
 }
+
+@media (min-width: 1700px) and (max-width: 2100px) {
+  #keyboard-arrows {
+    right: 2%;
+    top: 60%;
+    width: 20%;
+    height: 10%;
+  }
+  
+  #startGame {
+    font-size: 2vw;
+    left: 50%;
+    top: 72%;
+  }
+  
+  h1 {
+    font-size: 8vw;
+    top: 27%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  h2 {
+    font-size: 3vw;
+    top: 42.5%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
