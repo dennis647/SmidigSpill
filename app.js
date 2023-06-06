@@ -19,6 +19,19 @@ const mapData = {
   },
 };
 
+// Guard Object 
+
+const guardData = {
+  id: "guard",
+  name: "Guard",
+  direction: "right",
+  color: "gray",
+  x: 7, // Initial x-coordinate
+  y: 7, // Initial y-coordinate
+  coins: 0,
+  collectedPaintings: 0,
+};
+
 // Sound-fx and music
 const music = new Audio('/music/smooth-groove-10312.mp3');
 const caching = new Audio('/sounds/caching.mp3');
@@ -629,6 +642,110 @@ function getRandomSafeSpot() {
       //You're logged out.
     }
   })
+
+  function setUpAndStartGuard()
+  {
+
+  const gameContainer = document.querySelector(".game-container");
+  const guardElement = document.createElement("div");
+  guardElement.classList.add("Character", "grid-cell");
+  guardElement.setAttribute("data-color", guardData.color);
+  guardElement.setAttribute("data-direction", guardData.direction);
+  guardElement.innerHTML = `
+    <div class="Character_shadow grid-cell"></div>
+    <img src="/images/guard.png" class="grid-cell"/>
+    <div class="Character_name-container">
+      <span class="Character_name">${guardData.name}</span>
+      <span class="Character_coins">${guardData.coins}</span>
+    </div>
+    <div class="Character_you-arrow"></div>
+  `;
+
+  const left = 16 * guardData.x + "px";
+  const top = 16 * guardData.y - 4 + "px";
+  guardElement.style.transform =` translate3d(${left}, ${top}, 0)`;
+  console.log("Found game container: " + gameContainer);
+  gameContainer.appendChild(guardElement);
+  players[guardData.id] = guardData;
+  playerElements[guardData.id] = guardElement;
+
+  function moveGuardRandomly() {
+  const xChange = Math.floor(Math.random() * 3) - 1; // Random x-direction (-1, 0, 1)
+  const yChange = Math.floor(Math.random() * 3) - 1; // Random y-direction (-1, 0, 1)
+  const newX = guardData.x + xChange;
+  const newY = guardData.y + yChange;
+
+  let collisionDetected = false;
+  let collidedPlayerId = null;
+
+  // Calculate the bounding box for the guard
+  const guardElementWidth = guardElement.offsetWidth;
+  const guardElementHeight = guardElement.offsetHeight;
+  const guardBoundingBox = {
+    left: guardData.x * guardElementWidth,
+    right: (guardData.x * guardElementWidth) + guardElementWidth,
+    top: guardData.y * guardElementHeight,
+    bottom: (guardData.y * guardElementHeight) + guardElementHeight,
+  };
+
+  // Iterate over every player
+  Object.keys(players).forEach((key) => {
+    const player = players[key];
+    if (key === guardData.id) {
+      // Skip collision check with the guard themselves
+      return;
+    }
+
+    // Calculate the bounding box for the player
+    const playerElement = playerElements[key]; // Replace with the actual reference to the player element
+    const playerSprite = playerElement.querySelector(".Character_sprite"); // Replace with the actual selector for the player sprite element
+    const playerElementWidth = playerSprite.offsetWidth;
+    const playerElementHeight = playerSprite.offsetHeight;
+    const playerBoundingBox = {
+      left: player.x * playerElementWidth,
+      right: (player.x * playerElementWidth) + playerElementWidth,
+      top: player.y * playerElementHeight,
+      bottom: (player.y * playerElementHeight) + playerElementHeight,
+    };
+
+    // Check if the bounding boxes of the player and guard overlap
+    if (
+      guardBoundingBox.left < playerBoundingBox.right &&
+      guardBoundingBox.right > playerBoundingBox.left &&
+      guardBoundingBox.top < playerBoundingBox.bottom &&
+      guardBoundingBox.bottom > playerBoundingBox.top
+    ) {
+      collisionDetected = true;
+      collidedPlayerId = key;
+      const collisionSound = new Audio('/sounds/Oof.mp3');
+      collisionSound.play();
+
+      // Remove a coin from the collided player if they have any
+      if (players[collidedPlayerId].coins > 0) {
+        firebase.database().ref(`players/${collidedPlayerId}`).update({
+          coins: players[collidedPlayerId].coins - 1,
+          collisionDetected: true,
+        });
+        guardData.coins = guardData.coins + 1;
+      }
+    }
+  });
+
+  if (!collisionDetected && !isSolid(newX, newY)) {
+    guardData.x = newX;
+    guardData.y = newY;
+    guardElement.querySelector(".Character_coins").innerText = guardData.coins;
+
+    const left = 16 * guardData.x + "px";
+    const top = 16 * guardData.y - 4 + "px";
+    guardElement.style.transform = `translate3d(${left}, ${top}, 0)`;
+  }
+    }
+
+    setInterval(moveGuardRandomly, 1000);
+  }
+
+  setUpAndStartGuard();
 
   firebase.auth().signInAnonymously().catch((error) => {
     var errorCode = error.code;
