@@ -55,14 +55,12 @@ function createName() {
   const nameGen = randomFromArray([
     "EDVARD",
     "MUNCH",
-    "EDVARD MUNCH",
     "SKRIK",
     "VAMPYR",
     "ANGST",
     "LØSRIVELSE",
     "STJERNENATT",
     "STRAND",
-    "RØDT OG HVITT",
     "SJALSUI",
     "TOGRØYK",
   ]);
