@@ -19,8 +19,6 @@ const mapData = {
   },
 };
 
-// Guard Object 
-
 const guardData = {
   id: "guard",
   name: "Guard",
@@ -51,6 +49,8 @@ function getKeyString(x, y) {
   return `${x}x${y}`;
 }
 
+
+
 function createName() {
   const nameGen = randomFromArray([
     "EDVARD",
@@ -74,7 +74,7 @@ function isSolid(x,y) {
 
   const blockedNextSpace = mapData.blockedSpaces[getKeyString(x, y)];
   return (
-    blockedNextSpace || 
+    blockedNextSpace ||
     x >= mapData.maxX ||
     x < mapData.minX ||
     y >= mapData.maxY ||
@@ -127,7 +127,8 @@ function getRandomSafeSpot() {
   let sum = 0;
   let allPlayersRef = {};
 
-  
+
+
   const gameContainer = document.querySelector(".game-container");
   const playerNameInput = document.querySelector("#player-name");
   const playerColorButton = document.querySelector("#player-color");
@@ -158,7 +159,7 @@ function getRandomSafeSpot() {
       { x: 8, y: 8 },
       { x: 11, y: 4 },
     ];
-  
+
     coinSpawnPoints.forEach((point) => {
       const key = getKeyString(point.x, point.y);
       if (!coins[key]) {
@@ -170,7 +171,7 @@ function getRandomSafeSpot() {
       }
     });
   }
-  
+
   function removeCoins() {
     const allCoinsRef = firebase.database().ref(`coins`);
     allCoinsRef.once("value", (snapshot) => {
@@ -183,7 +184,7 @@ function getRandomSafeSpot() {
 
 
   function attemptGrabCoin(x, y) {
-    
+
     const key = getKeyString(x, y);
     const errorMsg = document.getElementById("errorMsg");
 
@@ -203,7 +204,7 @@ function getRandomSafeSpot() {
       errorMsg.style.display = `none`;
     }, 1500);
   }
-  } 
+  }
   }
   function attemptReturn(x, y){
     const key = getKeyString(x,y);
@@ -225,14 +226,14 @@ function getRandomSafeSpot() {
   /*
   function checkCollision(player1, player2){
     return player1.x === player2.x && player1.y === player2.y
-  
+
 }*/
 
   function handleArrowPress(xChange=0, yChange=0) {
     const newX = players[playerId].x + xChange;
     const newY = players[playerId].y + yChange;
-    
-    
+
+
     let collisionDetected = false;
     Object.keys(players).forEach((key) => {
       if (key !== playerId) {
@@ -242,12 +243,12 @@ function getRandomSafeSpot() {
           pushedPlayerId = key
           console.log("Collision detected with player ", key);
           pushFx.play();
-          const redFlash = document.getElementById("red-Flash");  
+          const redFlash = document.getElementById("red-Flash");
           redFlash.style.display = 'block';
           setTimeout(() => {
           redFlash.style.display = 'none';
           }, 200);
-          
+
 
           if(players[pushedPlayerId].coins >= 1) {
           firebase.database().ref(`players/${pushedPlayerId}`).update({
@@ -279,13 +280,13 @@ function getRandomSafeSpot() {
       playerRef.set(players[playerId]);
       attemptGrabCoin(newX, newY);
       attemptReturn(newX,newY);
-      
+
       // Adjust viewport position based on character's position
       const viewport = document.querySelector(".viewport");
       const cellSize = 128; // Adjust this value according to your game grid cell size
 
       const characterElement = playerElements[playerId];
-      characterElement.classList.add("bobbingAnimation");  
+      characterElement.classList.add("bobbingAnimation");
       const viewportLeft = players[playerId].x * cellSize;
       const viewportTop = players[playerId].y * cellSize;
        // Add animation transition to the viewport
@@ -314,8 +315,8 @@ function getRandomSafeSpot() {
         viewport.style.left = `${-viewportLeft}px`;
         viewport.style.top = `${-viewportTop}px`;
       }, 850)
-  } 
-  
+  }
+
   // INIT GAME //
   function initGame() {
     muteCheckbox.addEventListener('change', function() {
@@ -335,7 +336,7 @@ function getRandomSafeSpot() {
     new KeyPressListener("Space", () => {
       const currentTime = Date.now();
       const elapsedTime = currentTime - lastSpacePressTime;
-      
+
       if (!spacePressed && elapsedTime >= pressCooldown) {
         spacePressed = true;
         lastSpacePressTime = currentTime;
@@ -389,9 +390,9 @@ function getRandomSafeSpot() {
       const elapsedTime = currentTime - lastSpacePressTime;
       const remainingTime = pressCooldown - elapsedTime;
       const powerupCooldown = document.getElementById("powerup-cooldown");
-      
+
       const seconds = Math.ceil(remainingTime / 1000); // Convert to seconds and round up
-      
+
       if (seconds > 0) {
         powerupCooldown.innerHTML = (`${seconds}s`);
         powerupCooldown.style.background = `#9a240a`;
@@ -401,9 +402,9 @@ function getRandomSafeSpot() {
         powerupCooldown.style.background = `#fe390f`;
       }
     }
-    
+
     setInterval(updateCooldownDisplay, 1000);
-    
+
 
     const allPlayersRef = firebase.database().ref(`players`);
     const allCoinsRef = firebase.database().ref(`coins`);
@@ -411,16 +412,16 @@ function getRandomSafeSpot() {
     function updateScoreboard() {
       const scoreboardBody = document.getElementById("scoreboard-body");
       scoreboardBody.innerHTML = ""; // Clear existing scores
-    
+
       const sortedPlayers = Object.values(players).sort((a, b) => b.collectedPaintings - a.collectedPaintings);
-    
+
       sortedPlayers.forEach((player) => {
         const row = document.createElement("tr");
         const playerScoreCell = document.createElement("td");
-    
+
         playerScoreCell.textContent = player.name.toUpperCase() + ":  " + " "+ player.collectedPaintings;
         playerScoreCell.classList.add("player-score");
-    
+
         row.appendChild(playerScoreCell);
         scoreboardBody.appendChild(row);
       });
@@ -438,13 +439,21 @@ function getRandomSafeSpot() {
         el.setAttribute("data-direction", characterState.direction);
         const left = 16 * characterState.x + "px";
         const top = 16 * characterState.y - 4 + "px";
-        el.style.transform = `translate3d(${left}, ${top}, 0)`;  
-        updateScoreboard()  
+        el.style.transform = `translate3d(${left}, ${top}, 0)`;
+        updateScoreboard()
       })
     })
     allPlayersRef.on("child_added", (snapshot) => {
+
       //Fires whenever a new node is added the tree
       const addedPlayer = snapshot.val();
+      console.log("Added player with id: " + addedPlayer.id);
+      if(addedPlayer.id === guardData.id)
+      {
+
+        // do nothing with guard, is not a player
+        return;
+      }
       const characterElement = document.createElement("div");
       characterElement.classList.add("Character", "grid-cell");
       if (addedPlayer.id === playerId) {
@@ -508,7 +517,7 @@ function getRandomSafeSpot() {
         "/images/art15.png",
         // Add more PNG image paths or URLs as needed
       ];
-    
+
     const randomIndex = Math.floor(Math.random() * coinSprites.length);
     const selectedCoinSprite = coinSprites[randomIndex];
 
@@ -557,7 +566,7 @@ function getRandomSafeSpot() {
         setTimeout(() => {
           redFlash.style.display = "none";
         }, 200);
-    
+
         // Reset the collisionDetected flag
         playerRef.update({
           collisionDetected: false,
@@ -742,7 +751,7 @@ function getRandomSafeSpot() {
   }
     }
 
-    setInterval(moveGuardRandomly, 500);
+    setInterval(moveGuardRandomly, 1000);
   }
 
   setUpAndStartGuard();

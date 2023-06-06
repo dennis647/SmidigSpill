@@ -25,7 +25,7 @@ html, body {
   justify-content: center;
 }
 
-.game-container { 
+.game-container {
   position: relative;
   width: 240px;
   height: 208px;
@@ -36,7 +36,7 @@ html, body {
 .redflash{
   position: absolute;
   width: 100vw;
-  height:100vh; 
+  height:100vh;
   transform:scale(3);
   background-color: rgba(255, 0, 0, 0.534);
   z-index: 1;
