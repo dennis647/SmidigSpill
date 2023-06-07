@@ -238,7 +238,9 @@ function getRandomSafeSpot() {
       setTimeout(() => {
       redFlash.style.display = 'none';
       }, 200);
-      players[playerId].coins -= 1;
+      playerRef.update({
+      coins: players[playerId].coins - 1,
+      })
     }
     Object.keys(players).forEach((key) => {
       if (key !== playerId) {
