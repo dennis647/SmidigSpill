@@ -51,7 +51,6 @@ function getKeyString(x, y) {
 }
 
 
-
 function createName() {
   const nameGen = randomFromArray([
     "EDVARD",
@@ -111,7 +110,6 @@ function getRandomSafeSpot() {
 }
 
 
-
 (function () {
 
   let playerId;
@@ -122,7 +120,6 @@ function getRandomSafeSpot() {
   let coinElements = {};
   let sum = 0;
   let allPlayersRef = {};
-
 
 
   const gameContainer = document.querySelector(".game-container");
@@ -178,7 +175,6 @@ function getRandomSafeSpot() {
     });
   }
 
-
   function attemptGrabCoin(x, y) {
 
     const key = getKeyString(x, y);
@@ -229,7 +225,6 @@ function getRandomSafeSpot() {
     const newX = players[playerId].x + xChange;
     const newY = players[playerId].y + yChange;
 
-
     let collisionDetected = false;
     if(guardData.x === newX && guardData.y === newY){
       collisionDetected = true;
@@ -258,7 +253,6 @@ function getRandomSafeSpot() {
           setTimeout(() => {
           redFlash.style.display = 'none';
           }, 200);
-
 
           if(players[pushedPlayerId].coins >= 1) {
           firebase.database().ref(`players/${pushedPlayerId}`).update({
@@ -349,7 +343,7 @@ function getRandomSafeSpot() {
       const elapsedTime = currentTime - lastSpacePressTime;
 
       if (!spacePressed && elapsedTime >= pressCooldown) {
-        spacePressed = true;  
+        spacePressed = true;
         lastSpacePressTime = currentTime;
       }
     });
@@ -415,7 +409,6 @@ function getRandomSafeSpot() {
     }
 
     setInterval(updateCooldownDisplay, 1000);
-
 
     const allPlayersRef = firebase.database().ref(`players`);
     const allCoinsRef = firebase.database().ref(`coins`);
@@ -492,14 +485,12 @@ function getRandomSafeSpot() {
       gameContainer.appendChild(characterElement);
     })
 
-
     //Remove character DOM element after they leave
     allPlayersRef.on("child_removed", (snapshot) => {
       const removedKey = snapshot.val().id;
       gameContainer.removeChild(playerElements[removedKey]);
       delete playerElements[removedKey];
     })
-
 
     //This block will remove coins from local state when Firebase `coins` value updates
     allCoinsRef.on("value", (snapshot) => {
@@ -555,7 +546,6 @@ function getRandomSafeSpot() {
       gameContainer.removeChild( coinElements[keyToRemove] );
       delete coinElements[keyToRemove];
     })
-
 
     //Updates player name with text input
     playerNameInput.addEventListener("change", (e) => {
@@ -640,7 +630,6 @@ function getRandomSafeSpot() {
 
       const {x, y} = getRandomSafeSpot();
 
-
       playerRef.set({
         id: playerId,
         name,
@@ -692,29 +681,27 @@ function getRandomSafeSpot() {
   const yChange = Math.floor(Math.random() * 3) - 1; // Random y-direction (-1, 0, 1)
   const newX = guardData.x + xChange;
   const newY = guardData.y + yChange;
-  
+
   let collisionDetected = false;
   let collidedPlayerId = null;
- 
+
   // Iterate over every player
-  Object.keys(players).forEach((key) => {
-    const player = players[key];
-    if (key === guardData.id) {
-      // Skip collision check with the guard themselves
-      return;
-      
+  for (const key in players) {
+  const player = players[key];
+    if (newX === player.x && newY === player.y) {
+        // Player is at the same position as the guard, do not move
+        collisionDetected = true;
     }
-    if(guardData.x === player.x -1 && guardData.y === player.y -1){
+    if(guardData.x === player.x -1 && guardData.y  === player.y -1 || guardData.x  === player.x +1  && guardData.y  === player.y +1){
       console.log("bomp");
       collisionDetected = true;
       collidedPlayerId = key;
       const collisionSound = new Audio('/sounds/Oof.mp3');
-      if (pushedPlayerId === playerId) {
-        collisionSound.play();
-      }
-
       // Remove a coin from the collided player if they have any
       if (players[collidedPlayerId].coins > 0) {
+        if(collidedPlayerId === playerId){
+          collisionSound.play();
+        }
         firebase.database().ref(`players/${collidedPlayerId}`).update({
           coins: players[collidedPlayerId].coins - 1,
           collisionDetected: true,
@@ -722,10 +709,7 @@ function getRandomSafeSpot() {
         guardData.coins = guardData.coins + 1;
       }
     }
-
-
-  });
-
+  }
   if (!collisionDetected && !isSolid(newX, newY)) {
     guardData.x = newX;
     guardData.y = newY;
@@ -755,7 +739,6 @@ function getRandomSafeSpot() {
 
     setInterval(moveGuardRandomly, 850);
   }
-
   setUpAndStartGuard();
 
   firebase.auth().signInAnonymously().catch((error) => {
@@ -763,9 +746,11 @@ function getRandomSafeSpot() {
     var errorMessage = error.message;
     // ...
     console.log(errorCode, errorMessage);
+
   });
 
 })();
+
 
 
 

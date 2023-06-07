@@ -8,6 +8,14 @@
     <link rel="stylesheet" href="/landr.css" type="text/css">
 </head>
 <body>
+    <div id="popup">
+        <div id="popup-content">
+            <div id="popup-text">
+                <p>In this game, the player has to steal the paintings and return them to the getaway car at the top of the map. Beware, there are other players in the game, and also a security guard collecting the paintings from the players .</p>
+            </div>
+            <span id="closePopup">Close</span>
+        </div>
+    </div>
     <div id="background">
         <h1>MUNCH:</h1>
         <br>
@@ -24,10 +32,15 @@
             <img src="/images/space.jpg" alt="space" height="40">
             <p id="text-space-color">And space for power up while moving</p>
         </div>
-        <div id="text-content">
-            <p id="about-munch-title"> Welcome to Munch - The Grand Heist</p>
-            <p id="about-munch-content">The goal is to steal the most paintings, but watch out other players can steal them from you.</p>
-        </div>
     </div>
+    <script>
+        window.addEventListener("load", function() {
+        document.getElementById("popup").style.display = "flex";
+        });
+    
+        document.getElementById("closePopup").addEventListener("click", function() {
+        document.getElementById("popup").style.display = "none";
+        });
+    </script>
 </body>
 </html>
