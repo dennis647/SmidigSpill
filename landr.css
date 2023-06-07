@@ -40,8 +40,43 @@ h2 {
   top: 38%;
   left: 42%;
   text-align: center;
-  color: aliceblue;
+  color: white;
   text-shadow: 10px 10px 5px #0f2335;
+}
+
+#popup {
+  position: fixed;
+  top: 30%;
+  left: 33%;
+  width: 34%;
+  height: 25%;
+  background-color: rgba(0, 0, 0, 0.9);
+  display: none;
+  z-index: 4;
+  text-align: center;
+  justify-content: center;
+  color: aliceblue;
+  font-size: large;
+}
+
+#popup.open {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#popup-content {
+  max-width: 350px;
+  padding: 10px;
+  text-align: center;
+}
+
+#popup-text{
+  margin-bottom: 10px;
+}
+
+#closePopup {
+  cursor: pointer;
 }
 
 #background {
@@ -134,14 +169,14 @@ h2 {
   
   h1 {
     font-size: 6vw;
-    top: 38%;
+    top: 40%;
     left: 50%;
     transform: translate(-50%, -50%);
   }
   
   h2 {
     font-size: 2vw;
-    top: 46%;
+    top: 46.5%;
     left: 50%;
     transform: translate(-50%, -50%);
   }
@@ -169,7 +204,7 @@ h2 {
   
   h2 {
     font-size: 2vw;
-    top: 44.5%;
+    top: 42%;
     left: 50%;
     transform: translate(-50%, -50%);
   }
@@ -198,7 +233,7 @@ h2 {
   
   h2 {
     font-size: 2.5vw;
-    top: 45%;
+    top: 44%;
     left: 50%;
     transform: translate(-50%, -50%);
   }
@@ -227,13 +262,13 @@ h2 {
   
   h2 {
     font-size: 3vw;
-    top: 42.5%;
+    top: 40%;
     left: 50%;
     transform: translate(-50%, -50%);
   }
 }
 
-@media (min-width: 1700px) and (max-width: 2100px) {
+@media (min-width: 1700px) and (max-width: 2200px) {
   #keyboard-arrows {
     right: 2%;
     top: 60%;
@@ -256,7 +291,7 @@ h2 {
   
   h2 {
     font-size: 3vw;
-    top: 42.5%;
+    top: 40%;
     left: 50%;
     transform: translate(-50%, -50%);
   }
