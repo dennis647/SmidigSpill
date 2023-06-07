@@ -704,7 +704,7 @@ function getRandomSafeSpot() {
       return;
       
     }
-    if(guardData.x === player.x && guardData.y === player.y){
+    if(guardData.x === player.x -1 && guardData.y === player.y -1){
       console.log("bomp");
       collisionDetected = true;
       collidedPlayerId = key;
