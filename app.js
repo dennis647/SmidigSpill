@@ -687,27 +687,26 @@ function getRandomSafeSpot() {
 
   // Iterate over every player
   for (const key in players) {
-    if (key === guardData.id) {
-      // Skip collision check with the guard themselves
-      continue;
-    }
   const player = players[key];
     if (newX === player.x && newY === player.y) {
-      // Collision detected with another player, adjust movement
-      const diffX = player.x - guardData.x;
-      const diffY = player.y - guardData.y;
-
-      // Adjust x and y changes based on player's position relative to the guard
-      if (diffX !== 0) {
-        xChange = Math.sign(diffX); // Move guard towards player horizontally
-        yChange = 0; // No vertical movement
-      } else if (diffY !== 0) {
-        xChange = 0; // No horizontal movement
-        yChange = Math.sign(diffY); // Move guard towards player vertically
-      } else {
         // Player is at the same position as the guard, do not move
         collisionDetected = true;
-        break;
+    }
+    if(guardData.x === player.x -1 && guardData.y  === player.y -1 || guardData.x  === player.x +1  && guardData.y  === player.y +1){
+      console.log("bomp");
+      collisionDetected = true;
+      collidedPlayerId = key;
+      const collisionSound = new Audio('/sounds/Oof.mp3');
+      // Remove a coin from the collided player if they have any
+      if (players[collidedPlayerId].coins > 0) {
+        if(collidedPlayerId === playerId){
+          collisionSound.play();
+        }
+        firebase.database().ref(`players/${collidedPlayerId}`).update({
+          coins: players[collidedPlayerId].coins - 1,
+          collisionDetected: true,
+        });
+        guardData.coins = guardData.coins + 1;
       }
     }
   }
