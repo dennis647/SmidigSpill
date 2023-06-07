@@ -230,6 +230,16 @@ function getRandomSafeSpot() {
 
 
     let collisionDetected = false;
+    if(guardData.x === newX && guardData.y === newY && players[playerId].coins > 0){
+      collisionDetected = true;
+      pushFx.play();
+      const redFlash = document.getElementById("red-Flash");
+      redFlash.style.display = 'block';
+      setTimeout(() => {
+      redFlash.style.display = 'none';
+      }, 200);
+      players[playerId].coins -= 1;
+    }
     Object.keys(players).forEach((key) => {
       if (key !== playerId) {
         const otherPlayer = players[key];
@@ -252,7 +262,8 @@ function getRandomSafeSpot() {
             playerRef.update({
               coins: players[playerId].coins + 1,
             })
-          } else {
+          }
+           else {
             return;
           }
 
@@ -677,9 +688,10 @@ function getRandomSafeSpot() {
   const yChange = Math.floor(Math.random() * 3) - 1; // Random y-direction (-1, 0, 1)
   const newX = guardData.x + xChange;
   const newY = guardData.y + yChange;
-
+  
   let collisionDetected = false;
   let collidedPlayerId = null;
+ 
 
   // Calculate the bounding box for the guard
   const guardElementWidth = guardElement.offsetWidth;
@@ -760,9 +772,6 @@ function getRandomSafeSpot() {
       guardElement.style.transform = `translate3d(${left}, ${top}, 0)`;
     }
   });
-
-
-
     }
   }
 
