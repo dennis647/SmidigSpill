@@ -349,7 +349,7 @@ function getRandomSafeSpot() {
       const elapsedTime = currentTime - lastSpacePressTime;
 
       if (!spacePressed && elapsedTime >= pressCooldown) {
-        spacePressed = true;  
+        spacePressed = true;
         lastSpacePressTime = currentTime;
       }
     });
@@ -692,40 +692,36 @@ function getRandomSafeSpot() {
   const yChange = Math.floor(Math.random() * 3) - 1; // Random y-direction (-1, 0, 1)
   const newX = guardData.x + xChange;
   const newY = guardData.y + yChange;
-  
+
   let collisionDetected = false;
   let collidedPlayerId = null;
- 
+
   // Iterate over every player
-  Object.keys(players).forEach((key) => {
-    const player = players[key];
+  for (const key in players) {
     if (key === guardData.id) {
       // Skip collision check with the guard themselves
-      return;
-      
+      continue;
     }
-    if(guardData.x === player.x -1 && guardData.y === player.y -1){
-      console.log("bomp");
-      collisionDetected = true;
-      collidedPlayerId = key;
-      const collisionSound = new Audio('/sounds/Oof.mp3');
-      if (pushedPlayerId === playerId) {
-        collisionSound.play();
-      }
+  const player = players[key];
+    if (newX === player.x && newY === player.y) {
+      // Collision detected with another player, adjust movement
+      const diffX = player.x - guardData.x;
+      const diffY = player.y - guardData.y;
 
-      // Remove a coin from the collided player if they have any
-      if (players[collidedPlayerId].coins > 0) {
-        firebase.database().ref(`players/${collidedPlayerId}`).update({
-          coins: players[collidedPlayerId].coins - 1,
-          collisionDetected: true,
-        });
-        guardData.coins = guardData.coins + 1;
+      // Adjust x and y changes based on player's position relative to the guard
+      if (diffX !== 0) {
+        xChange = Math.sign(diffX); // Move guard towards player horizontally
+        yChange = 0; // No vertical movement
+      } else if (diffY !== 0) {
+        xChange = 0; // No horizontal movement
+        yChange = Math.sign(diffY); // Move guard towards player vertically
+      } else {
+        // Player is at the same position as the guard, do not move
+        collisionDetected = true;
+        break;
       }
     }
-
-
-  });
-
+  }
   if (!collisionDetected && !isSolid(newX, newY)) {
     guardData.x = newX;
     guardData.y = newY;
@@ -755,7 +751,6 @@ function getRandomSafeSpot() {
 
     setInterval(moveGuardRandomly, 850);
   }
-
   setUpAndStartGuard();
 
   firebase.auth().signInAnonymously().catch((error) => {
@@ -763,7 +758,9 @@ function getRandomSafeSpot() {
     var errorMessage = error.message;
     // ...
     console.log(errorCode, errorMessage);
+
   });
+
 
 })();
 
