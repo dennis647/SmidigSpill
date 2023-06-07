@@ -241,6 +241,7 @@ function getRandomSafeSpot() {
       redFlash.style.display = 'none';
       }, 200);
       players[playerId].coins -= 1;
+      }
     }
     Object.keys(players).forEach((key) => {
       if (key !== playerId) {
