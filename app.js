@@ -51,7 +51,6 @@ function getKeyString(x, y) {
 }
 
 
-
 function createName() {
   const nameGen = randomFromArray([
     "EDVARD",
@@ -111,7 +110,6 @@ function getRandomSafeSpot() {
 }
 
 
-
 (function () {
 
   let playerId;
@@ -122,7 +120,6 @@ function getRandomSafeSpot() {
   let coinElements = {};
   let sum = 0;
   let allPlayersRef = {};
-
 
 
   const gameContainer = document.querySelector(".game-container");
@@ -178,7 +175,6 @@ function getRandomSafeSpot() {
     });
   }
 
-
   function attemptGrabCoin(x, y) {
 
     const key = getKeyString(x, y);
@@ -229,7 +225,6 @@ function getRandomSafeSpot() {
     const newX = players[playerId].x + xChange;
     const newY = players[playerId].y + yChange;
 
-
     let collisionDetected = false;
     if(guardData.x === newX && guardData.y === newY){
       collisionDetected = true;
@@ -258,7 +253,6 @@ function getRandomSafeSpot() {
           setTimeout(() => {
           redFlash.style.display = 'none';
           }, 200);
-
 
           if(players[pushedPlayerId].coins >= 1) {
           firebase.database().ref(`players/${pushedPlayerId}`).update({
@@ -416,7 +410,6 @@ function getRandomSafeSpot() {
 
     setInterval(updateCooldownDisplay, 1000);
 
-
     const allPlayersRef = firebase.database().ref(`players`);
     const allCoinsRef = firebase.database().ref(`coins`);
 
@@ -492,14 +485,12 @@ function getRandomSafeSpot() {
       gameContainer.appendChild(characterElement);
     })
 
-
     //Remove character DOM element after they leave
     allPlayersRef.on("child_removed", (snapshot) => {
       const removedKey = snapshot.val().id;
       gameContainer.removeChild(playerElements[removedKey]);
       delete playerElements[removedKey];
     })
-
 
     //This block will remove coins from local state when Firebase `coins` value updates
     allCoinsRef.on("value", (snapshot) => {
@@ -555,7 +546,6 @@ function getRandomSafeSpot() {
       gameContainer.removeChild( coinElements[keyToRemove] );
       delete coinElements[keyToRemove];
     })
-
 
     //Updates player name with text input
     playerNameInput.addEventListener("change", (e) => {
@@ -639,7 +629,6 @@ function getRandomSafeSpot() {
       playerNameInput.value = name;
 
       const {x, y} = getRandomSafeSpot();
-
 
       playerRef.set({
         id: playerId,
@@ -761,8 +750,8 @@ function getRandomSafeSpot() {
 
   });
 
-
 })();
+
 
 
 
