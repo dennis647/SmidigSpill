@@ -696,44 +696,16 @@ function getRandomSafeSpot() {
   let collisionDetected = false;
   let collidedPlayerId = null;
  
-
-  // Calculate the bounding box for the guard
-  const guardElementWidth = guardElement.offsetWidth;
-  const guardElementHeight = guardElement.offsetHeight;
-  const guardBoundingBox = {
-    left: guardData.x * guardElementWidth,
-    right: (guardData.x * guardElementWidth) + guardElementWidth,
-    top: guardData.y * guardElementHeight,
-    bottom: (guardData.y * guardElementHeight) + guardElementHeight,
-  };
-
   // Iterate over every player
   Object.keys(players).forEach((key) => {
     const player = players[key];
     if (key === guardData.id) {
       // Skip collision check with the guard themselves
       return;
+      
     }
-
-    // Calculate the bounding box for the player
-    const playerElement = playerElements[key]; // Replace with the actual reference to the player element
-    const playerSprite = playerElement.querySelector(".Character_sprite"); // Replace with the actual selector for the player sprite element
-    const playerElementWidth = playerSprite.offsetWidth;
-    const playerElementHeight = playerSprite.offsetHeight;
-    const playerBoundingBox = {
-      left: player.x * playerElementWidth,
-      right: (player.x * playerElementWidth) + playerElementWidth,
-      top: player.y * playerElementHeight,
-      bottom: (player.y * playerElementHeight) + playerElementHeight,
-    };
-
-    // Check if the bounding boxes of the player and guard overlap
-    if (
-      guardBoundingBox.left < playerBoundingBox.right &&
-      guardBoundingBox.right > playerBoundingBox.left &&
-      guardBoundingBox.top < playerBoundingBox.bottom &&
-      guardBoundingBox.bottom > playerBoundingBox.top
-    ) {
+    if(guardData.x === player.x && guardData.y === player.y){
+      console.log("bomp");
       collisionDetected = true;
       collidedPlayerId = key;
       const collisionSound = new Audio('/sounds/Oof.mp3');
@@ -750,6 +722,8 @@ function getRandomSafeSpot() {
         guardData.coins = guardData.coins + 1;
       }
     }
+
+
   });
 
   if (!collisionDetected && !isSolid(newX, newY)) {
