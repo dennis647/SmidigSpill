@@ -230,15 +230,17 @@ function getRandomSafeSpot() {
 
 
     let collisionDetected = false;
-    if(guardData.x === newX && guardData.y === newY && players[playerId].coins > 0){
+    if(guardData.x === newX && guardData.y === newY){
       collisionDetected = true;
-      pushFx.play();
+      if(players[playerId].coins > 0){
+        pushFx.play();
       const redFlash = document.getElementById("red-Flash");
       redFlash.style.display = 'block';
       setTimeout(() => {
       redFlash.style.display = 'none';
       }, 200);
       players[playerId].coins -= 1;
+      }
     }
     Object.keys(players).forEach((key) => {
       if (key !== playerId) {
