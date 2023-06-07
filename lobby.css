@@ -1,0 +1,276 @@
+* {
+  box-sizing: border-box;
+}
+
+@font-face {
+  font-family: 'GirottMunch-BoldSlant';
+  src: 
+      url('/Fonts/GirottMunch-BoldSlant.eot') format('eot'),
+      url('/Fonts/GirottMunch-BoldSlant.woff2') format('woff2'),
+      url('/Fonts/GirottMunch-BoldSlant.eot') format('eot');
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  background-color: black;
+  font-family: 'GirottMunch-BoldSlant';
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 5px solid black;
+  overflow: hidden;
+}
+
+.lobby-container {
+  color: white;
+  border-radius: 5px;
+  padding: 1% 2%;
+  text-align: center center;
+  font-size: 40px;
+  font-family: 'GirottMunch-BoldSlant';
+  position: absolute;
+  left: 42%;
+  top: 50%;
+  text-align: center;
+}
+
+h1 {
+  z-index: 1;
+  position: absolute;
+  color: aliceblue;
+  font-size: 90px;
+  top: 25%;
+  left: 43%;
+  text-align: center;
+  text-shadow: 10px 10px 5px #0f2335;
+}
+
+h2 {
+  z-index: 1;
+  position: absolute;
+  font-size: 45px;
+  top: 38%;
+  left: 42%;
+  text-align: center;
+  color: aliceblue;
+  text-shadow: 10px 10px 5px #0f2335;
+}
+
+#background {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+#background-picture {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+#keyboard-arrows {
+  position: absolute;
+  right: 11%;
+  top: 60%;
+  object-fit: cover;
+}
+
+#text-arrows-color {
+  color: aliceblue;
+}
+
+#text-space-color {
+  color: aliceblue;
+}
+
+#startGame {
+  border: 3px solid #194641;
+  color: white;
+  border-radius: 10px;
+  background-color: #0f2335;
+  padding: 1% 2%;
+  text-align: center center;
+  font-size: 40px;
+  font-family: 'GirottMunch-BoldSlant';
+  position: absolute;
+  left: 50%;
+  top: 73%;
+  transform: translate(-50%, -50%);
+}
+
+#startGame:hover {
+  color: grey;
+}
+
+@media (min-width:400px) and (max-width: 480px) {
+  #keyboard-arrows {
+    display: none;
+
+  }
+  
+  #startGame {
+    font-size: 2vw;
+    left: 50%;
+    top: 73.8%;
+    transform: translate(-50%, -50%);
+  }
+  
+  h1 {
+    font-size: 6vw;
+    top: 38%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  h2 {
+    font-size: 2vw;
+    top: 45.5%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+  #keyboard-arrows {
+    display: none;
+  }
+  
+  #startGame {
+    font-size: 2vw;
+    top: 74%;
+    transform: translate(-50%, -50%);
+  }
+  
+  h1 {
+    font-size: 6vw;
+    top: 38%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  h2 {
+    font-size: 2vw;
+    top: 46%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1199px) {
+  #keyboard-arrows {
+    right: 4%;
+    width: 21%; 
+    top: 55%;
+  }
+  
+  #startGame {
+    font-size: 2vw;
+    left: 50%;
+    top: 73%;
+  }
+  
+  h1 {
+    font-size: 6vw;
+    top: 33%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  h2 {
+    font-size: 2vw;
+    top: 44.5%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+@media (min-width: 1200px) and (max-width: 1599px) {
+  #keyboard-arrows {
+    right: 3%;
+    top: 60%;
+    width: 20%;
+    height: 8%;
+  }
+  
+  #startGame {
+    font-size: 2vw;
+    left: 50%;
+    top: 73%;
+  }
+  
+  h1 {
+    font-size: 7vw;
+    top: 32%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  h2 {
+    font-size: 2.5vw;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+@media (min-width: 1600px) and (max-width: 1700px) {
+  #keyboard-arrows {
+    right: 2%;
+    top: 60%;
+    width: 20%;
+    height: 10%;
+  }
+  
+  #startGame {
+    font-size: 2vw;
+    left: 50%;
+    top: 72%;
+  }
+  
+  h1 {
+    font-size: 8vw;
+    top: 27%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  h2 {
+    font-size: 3vw;
+    top: 42.5%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+@media (min-width: 1700px) and (max-width: 2100px) {
+  #keyboard-arrows {
+    right: 2%;
+    top: 60%;
+    width: 20%;
+    height: 10%;
+  }
+  
+  #startGame {
+    font-size: 2vw;
+    left: 50%;
+    top: 72%;
+  }
+  
+  h1 {
+    font-size: 8vw;
+    top: 27%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  h2 {
+    font-size: 3vw;
+    top: 42.5%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
