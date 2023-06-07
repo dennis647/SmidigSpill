@@ -37,6 +37,7 @@ const moveFx = new Audio('/sounds/move.mp3');
 const pushFx = new Audio('/sounds/whoosh.mp3');
 const dashFx = new Audio('/sounds/dash.mp3');
 const muteCheckbox = document.getElementById("musicToggle");
+const collisionSound = new Audio('/sounds/Oof.mp3');
 
 // Options for Player Colors... these are in the same order as our sprite sheet
 const playerColors = ["blue", "red", "orange", "yellow", "green", "purple"];
@@ -230,17 +231,16 @@ function getRandomSafeSpot() {
 
 
     let collisionDetected = false;
-    if(guardData.x === newX && guardData.y === newY && players[playerId].coins > 0){
+    if(guardData.x === newX && guardData.y === newY){
       collisionDetected = true;
-      pushFx.play();
+      if(players[playerId].coins > 0){
+        collisionSound.play();
       const redFlash = document.getElementById("red-Flash");
       redFlash.style.display = 'block';
       setTimeout(() => {
       redFlash.style.display = 'none';
       }, 200);
-      playerRef.update({
-      coins: players[playerId].coins - 1,
-      })
+      players[playerId].coins -= 1;
     }
     Object.keys(players).forEach((key) => {
       if (key !== playerId) {
@@ -569,7 +569,6 @@ function getRandomSafeSpot() {
         // Perform red flash on the current player's client
         const redFlash = document.getElementById("red-Flash");
         redFlash.style.display = "block";
-        const collisionSound = new Audio('/sounds/Oof.mp3');
         collisionSound.play();
         setTimeout(() => {
           redFlash.style.display = "none";
