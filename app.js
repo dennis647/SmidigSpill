@@ -704,17 +704,16 @@ function getRandomSafeSpot() {
       return;
       
     }
-    if(guardData.x === player.x -1 && guardData.y === player.y -1){
+    if(guardData.x === player.x -1 && guardData.y  === player.y -1|| guardData.x  === player.x +1  && guardData.y  === player.y +1){
       console.log("bomp");
       collisionDetected = true;
       collidedPlayerId = key;
       const collisionSound = new Audio('/sounds/Oof.mp3');
-      if (pushedPlayerId === playerId) {
-        collisionSound.play();
-      }
+      
 
       // Remove a coin from the collided player if they have any
       if (players[collidedPlayerId].coins > 0) {
+        collisionSound.play();
         firebase.database().ref(`players/${collidedPlayerId}`).update({
           coins: players[collidedPlayerId].coins - 1,
           collisionDetected: true,
