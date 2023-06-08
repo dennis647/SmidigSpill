@@ -286,6 +286,16 @@ function getRandomSafeSpot() {
       });
     });
   }
+  function gameOverCutScene() {
+    const viewport = document.querySelector(".viewport");
+    const car = document.getElementById("escape-car");
+    viewport.style.transition = "left 0.5s ease, top 0.5s ease";
+    viewport.style.left = `${-14*128}px`;
+    viewport.style.top = `-100px`;
+    car.classList.add("carAnimation");
+
+  }
+  
 
   function checkEndGame() {
     const playersRef = firebase.database().ref("players");
@@ -497,6 +507,7 @@ function removePlayers() {
           if (player.gameHasEnded >= 2) {
             console.log("Player", playerId, "has won!");
           } else if (player.gameHasEnded === 1) {
+            gameOverCutScene();
             console.log("Player", playerId, "has lost.");
           }
         });

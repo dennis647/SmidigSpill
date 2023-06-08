@@ -304,3 +304,15 @@ button:active {
   top: -15px;
   position: absolute;
 }
+
+.carAnimation {
+  animation: drive 2s;
+}
+
+@keyframes drive {
+  from {margin-top: 0;}
+  to { 
+  margin-top: -100px;
+  visibility: hidden;
+}
+}
