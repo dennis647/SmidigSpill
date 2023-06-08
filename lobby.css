@@ -23,6 +23,7 @@ html, body {
 }
 
 .lobby-container {
+  z-index: 1;
   color: white;
   border-radius: 5px;
   padding: 1% 2%;
@@ -33,6 +34,7 @@ html, body {
   left: 42%;
   top: 50%;
   text-align: center;
+  text-shadow: 10px 10px 5px #0f2335;
 }
 
 h1 {
