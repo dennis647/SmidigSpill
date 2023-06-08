@@ -111,7 +111,7 @@ const guardData = {
 
 // Sound-fx and music
 const music = new Audio('/music/smooth-groove-10312.mp3');
-const caching = new Audio('/sounds/caching.mp3');
+const carDoor = new Audio('/sounds/carDoor.mp3');
 const moveFx = new Audio('/sounds/move.mp3');
 const pushFx = new Audio('/sounds/whoosh.mp3');
 const dashFx = new Audio('/sounds/dash.mp3');
@@ -364,7 +364,7 @@ function removePlayers() {
     const key = getKeyString(x,y);
     if(key in mapData.returnPoint){
       if(players[playerId].coins >= 1){
-        caching.play();
+        carDoor.play();
       }
       console.log("Painting(s) saved!");
       const paintingsCollected = document.getElementById("collected-paintings");
