@@ -5,7 +5,7 @@ const mapData = {
   maxY: 15,
   returnPoint:{
     "14x4":true,
-    "14x4":true,
+    "15x4":true,
   },
   blockedSpaces: {
     "1x3": true,
@@ -203,6 +203,15 @@ function getRandomSafeSpot() {
   function placeCoin() {
     const coinSpawnPoints = [
       { x: 1, y: 6 },
+      { x: 1, y: 4 },
+      { x: 1, y: 8 },
+      { x: 1, y: 14},
+      { x: 3, y: 14},
+      { x: 5, y: 14},
+      { x: 22, y: 4},
+      { x: 28, y: 4},
+      { x: 15, y: 9},
+      { x: 14, y: 9},
       { x: 1, y: 10 },
       { x: 1, y: 12 },
       { x: 8, y: 14 },
@@ -225,6 +234,8 @@ function getRandomSafeSpot() {
       { x: 7, y: 7 },
       { x: 7, y: 13 },
       { x: 7, y: 13 },
+      { x: 22, y: 14},
+      { x: 25, y: 14},
     ];
 
     coinSpawnPoints.forEach((point) => {
@@ -293,12 +304,10 @@ function getRandomSafeSpot() {
         })
 
         const database = firebase.database();
-
         database.ref('players').once('value', (snapshot) => {
           snapshot.forEach((playerSnapshot) => {
             const playerId = playerSnapshot.key;
             const playerRef = database.ref(`players/${playerId}`);
-      
             playerRef.update({
               gameHasEnded: playerSnapshot.val().gameHasEnded + 1,
             });
@@ -940,10 +949,3 @@ function removePlayers() {
   });
 
 })();
-
-
-
-
-
-
-
