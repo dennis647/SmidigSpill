@@ -262,10 +262,11 @@ function getRandomSafeSpot() {
       
       if (currentPlayer.collectedPaintings >= 10) {
         console.log(`Du vinner med ${winAmount} bilder stjålet!`);
-      } else {
-        console.log("U lose");
+        playersRef.remove();
+        if (currentPlayer.collectedPaintings > 10) {
+          console.log("Game over");
+        }
       }
-      playersRef.remove();
     });
   }
 
