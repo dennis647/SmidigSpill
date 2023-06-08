@@ -254,22 +254,45 @@ function getRandomSafeSpot() {
 
   function checkEndGame() {
     const playersRef = firebase.database().ref("players");
+    var gameIsEnd = false;
     
     playersRef.once("value", (snapshot) => {
       const players = snapshot.val();
       const currentPlayer = players[playerId];
       const winAmount = players[playerId].collectedPaintings;
       
-      if (currentPlayer.collectedPaintings >= 10) {
+      if (currentPlayer.collectedPaintings >= 3) {
+        gameIsEnd = true;
         console.log(`Du vinner med ${winAmount} bilder stjålet!`);
-        playersRef.remove();
-        if (currentPlayer.collectedPaintings > 10) {
-          console.log("Game over");
-        }
-      }
-    });
-  }
+        playerRef.update({
+        gameHasEnded: players[playerId].gameHasEnded += 2,
+        })
 
+        const database = firebase.database();
+
+        database.ref('players').once('value', (snapshot) => {
+          snapshot.forEach((playerSnapshot) => {
+            const playerId = playerSnapshot.key;
+            const playerRef = database.ref(`players/${playerId}`);
+        
+            // Update the gameHasEnded property for each player
+            playerRef.update({
+              gameHasEnded: playerSnapshot.val().gameHasEnded + 1,
+            });
+          });
+        });
+
+        if (players[playerId].gameHasEnded >= 2) {
+          console.log("You have won champ!");
+        } if (players[playerId].gameHasEnded === 1) {
+          console.log("You lost reet");
+        }
+    
+
+       // playersRef.remove();
+      } 
+    });
+}
 
   function attemptGrabCoin(x, y) {
 
@@ -429,6 +452,7 @@ function getRandomSafeSpot() {
         music.play();
       }
     });
+
 
     let spacePressed = false;
     let lastSpacePressTime = 0;
@@ -730,18 +754,19 @@ function getRandomSafeSpot() {
     setInterval(updateCamera(playerRef.x , playerRef.y), 100);*/
   }
 
+  
   firebase.auth().onAuthStateChanged((user) => {
     console.log(user)
     if (user) {
       //You're logged in!
       playerId = user.uid;
       playerRef = firebase.database().ref(`players/${playerId}`);
-
+      
       const name = createName();
       playerNameInput.value = name;
-
+      
       const {x, y} = getRandomSafeSpot();
-
+      
       playerRef.set({
         id: playerId,
         name,
@@ -751,16 +776,18 @@ function getRandomSafeSpot() {
         y,
         coins: 0,
         collectedPaintings: 0,
+        gameHasEnded: 0,
       })
-
+      
       //Remove me from Firebase when I diconnect
       playerRef.onDisconnect().remove();
-
+      
       //Begin the game now that we are signed in
       initGame();
     } else {
       //You're logged out.
     }
+
   })
 
   function setUpAndStartGuard()
