@@ -308,7 +308,7 @@ function getRandomSafeSpot() {
             });
           });
         });
-        setTimeout(removePlayers, 3100);
+        setTimeout(removePlayers, 110);
       } 
     });
 }
@@ -496,7 +496,7 @@ function removePlayers() {
           }
         });
       });
-    }, 3000);
+    }, 100);
 
 
     let spacePressed = false;
