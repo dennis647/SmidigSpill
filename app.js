@@ -288,7 +288,7 @@ function getRandomSafeSpot() {
       const currentPlayer = players[playerId];
       const winAmount = players[playerId].collectedPaintings;
       
-      if (currentPlayer.collectedPaintings >= 3) {
+      if (currentPlayer.collectedPaintings >= 10) {
         gameIsEnd = true;
         console.log(`Du vinner med ${winAmount} bilder stjålet!`);
         playerRef.update({
@@ -301,8 +301,7 @@ function getRandomSafeSpot() {
           snapshot.forEach((playerSnapshot) => {
             const playerId = playerSnapshot.key;
             const playerRef = database.ref(`players/${playerId}`);
-        
-            // Update the gameHasEnded property for each player
+      
             playerRef.update({
               gameHasEnded: playerSnapshot.val().gameHasEnded + 1,
             });
