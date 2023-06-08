@@ -241,6 +241,33 @@ function getRandomSafeSpot() {
       }
     });
   }
+  function dashEffect(x){
+    const dashVisual = document.createElement("dashDiv");
+    dashVisual.classList.add("dash");
+    dashVisual.style.position = "absolute";
+    if (x === "down") {
+      dashVisual.style.left = (players[playerId].x * 16) + "px";
+      dashVisual.style.top = (players[playerId].y * 11) + "px";
+    } else if (x === "left") {
+      dashVisual.style.transform = "rotate(90deg)";
+      dashVisual.style.left = (players[playerId].x * 22) + "px";
+      dashVisual.style.top = (players[playerId].y * 16) + "px";
+    } else if (x === "right") {
+      dashVisual.style.transform = "rotate(-90deg)";
+      dashVisual.style.left = (players[playerId].x *13) + "px";
+      dashVisual.style.top = (players[playerId].y * 16) + "px";
+    } else if (x === "up") {
+      dashVisual.style.transform = "rotate(180deg)";
+      dashVisual.style.left = (players[playerId].x * 16) + "px";
+      dashVisual.style.top = (players[playerId].y * 22) + "px";
+    }
+    
+    gameContainer.appendChild(dashVisual);
+    
+    setTimeout(function() {
+      dashVisual.parentNode.removeChild(dashVisual);
+    }, 500);
+  }
 
   function removeCoins() {
     const allCoinsRef = firebase.database().ref(`coins`);
@@ -432,6 +459,8 @@ function getRandomSafeSpot() {
         dashFx.play();
         handleArrowPress(0, 3);
         spacePressed = false;
+        x="down";
+        dashEffect(x);
 
     }
   });
@@ -443,6 +472,8 @@ function getRandomSafeSpot() {
         dashFx.play();
         handleArrowPress(-3, 0);
         spacePressed = false;
+        x="left";
+        dashEffect(x);
       }
   });
 
@@ -454,6 +485,8 @@ function getRandomSafeSpot() {
         dashFx.play();
         handleArrowPress(3, 0);
         spacePressed = false;
+        x="right";
+        dashEffect(x);
     }
   });
 
@@ -464,6 +497,8 @@ function getRandomSafeSpot() {
         dashFx.play();
         handleArrowPress(0, -3);
         spacePressed = false;
+        x="up";
+        dashEffect(x);
       }
     });
 

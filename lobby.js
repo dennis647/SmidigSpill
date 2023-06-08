@@ -33,7 +33,7 @@ function decrementCountdown() {
         countdownRef.off();
         var timer = document.getElementById('timer');
         timer.textContent = "Starting game...";
-        //window.location.href = "/index.html";
+        window.location.href = "/index.html";
       }
     }
   });

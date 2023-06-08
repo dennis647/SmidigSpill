@@ -290,3 +290,9 @@ button:active {
 #scoreboard-body .player-score {
   margin-left: 10px;
 }
+
+.dash{
+  content: url('/images/smoke.png');
+  width: 16px;
+  height: 19px;
+}
