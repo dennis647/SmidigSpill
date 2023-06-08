@@ -117,6 +117,7 @@ const pushFx = new Audio('/sounds/whoosh.mp3');
 const dashFx = new Audio('/sounds/dash.mp3');
 const muteCheckbox = document.getElementById("musicToggle");
 const collisionSound = new Audio('/sounds/Oof.mp3');
+const driveFx = new Audio('/sounds/drive.mp3');
 
 // Options for Player Colors... these are in the same order as our sprite sheet
 const playerColors = ["blue", "red", "orange", "yellow", "green", "purple"];
@@ -286,14 +287,16 @@ function getRandomSafeSpot() {
       });
     });
   }
-  function gameOverCutScene() {
+  function moveViewPort() {
     const viewport = document.querySelector(".viewport");
-    const car = document.getElementById("escape-car");
     viewport.style.transition = "left 0.5s ease, top 0.5s ease";
     viewport.style.left = `${-14*128}px`;
     viewport.style.top = `-100px`;
+  }
+  function cutScene(){
+    const car = document.getElementById("escape-car");
     car.classList.add("carAnimation");
-
+    driveFx.play();
   }
   
 
@@ -324,6 +327,7 @@ function getRandomSafeSpot() {
           });
         });
         setTimeout(removePlayers, 110);
+        setTimeout(cutScene(),100);
       } 
     });
 }
@@ -506,8 +510,9 @@ function removePlayers() {
           // Check the gameHasEnded property for each player
           if (player.gameHasEnded >= 2) {
             console.log("Player", playerId, "has won!");
+            moveViewPort();
           } else if (player.gameHasEnded === 1) {
-            gameOverCutScene();
+            moveViewPort();
             console.log("Player", playerId, "has lost.");
           }
         });

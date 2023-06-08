@@ -307,6 +307,8 @@ button:active {
 
 .carAnimation {
   animation: drive 2s;
+  animation-fill-mode: forwards;
+  animation-iteration-count:1;
 }
 
 @keyframes drive {
@@ -314,5 +316,5 @@ button:active {
   to { 
   margin-top: -100px;
   visibility: hidden;
-}
+  }
 }
