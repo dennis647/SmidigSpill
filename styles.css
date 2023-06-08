@@ -296,3 +296,11 @@ button:active {
   width: 16px;
   height: 19px;
 }
+
+#escape-car {
+  width: 100px;
+  height: auto;
+  margin-left: 200px;
+  top: -15px;
+  position: absolute;
+}
