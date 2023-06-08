@@ -138,7 +138,7 @@ function createName() {
     "LØSRIVELSE",
     "STJERNENATT",
     "STRAND",
-    "SJALSUI",
+    "SJALUSI",
     "TOGRØYK",
   ]);
 
