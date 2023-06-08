@@ -279,6 +279,25 @@ function getRandomSafeSpot() {
     });
   }
 
+  function checkEndGame() {
+    const playersRef = firebase.database().ref("players");
+    
+    playersRef.once("value", (snapshot) => {
+      const players = snapshot.val();
+      const currentPlayer = players[playerId];
+      const winAmount = players[playerId].collectedPaintings;
+      
+      if (currentPlayer.collectedPaintings >= 10) {
+        console.log(`Du vinner med ${winAmount} bilder stjålet!`);
+        playersRef.remove();
+        if (currentPlayer.collectedPaintings > 10) {
+          console.log("Game over");
+        }
+      }
+    });
+  }
+
+
   function attemptGrabCoin(x, y) {
 
     const key = getKeyString(x, y);
@@ -316,6 +335,7 @@ function getRandomSafeSpot() {
         coins: players[playerId].coins = 0,
         collectedPaintings: players[playerId].collectedPaintings = sum,
       })
+      checkEndGame();
     }
   }
 
@@ -629,6 +649,21 @@ function getRandomSafeSpot() {
         "/images/art13.png",
         "/images/art14.png",
         "/images/art15.png",
+        "/images/art16.png",
+        "/images/art17.png",
+        "/images/art18.png",
+        "/images/art19.png",
+        "/images/art20.png",
+        "/images/art21.png",
+        "/images/art22.png",
+        "/images/art23.png",
+        "/images/art24.png",
+        "/images/art25.png",
+        "/images/art26.png",
+        "/images/art27.png",
+        "/images/art28.png",
+        "/images/art29.png",
+        "/images/art30.png",
         // Add more PNG image paths or URLs as needed
       ];
 
@@ -807,7 +842,6 @@ function getRandomSafeSpot() {
     if((Math.abs(guardData.x - player.x) === 1 && guardData.y === player.y) ||
     (guardData.x === player.x && Math.abs(guardData.y - player.y) === 1) ||
     (Math.abs(guardData.x - player.x) === 1 && Math.abs(guardData.y - player.y) === 1)){
-      console.log("bomp");
       collisionDetected = true;
       collidedPlayerId = key;
       const collisionSound = new Audio('/sounds/Oof.mp3');
@@ -864,6 +898,9 @@ function getRandomSafeSpot() {
   });
 
 })();
+
+
+
 
 
 
