@@ -4,10 +4,10 @@ const mapData = {
   minY: 0,
   maxY: 15,
   returnPoint:{
-    "13x0":true,
-    "14x0":true,
-    "15x0":true,
-    "16x0":true,
+    "13x2":true,
+    "13x3":true,
+    "16x2":true,
+    "16x3":true,
   },
   blockedSpaces: {
     "1x3": true,
@@ -93,6 +93,10 @@ const mapData = {
     "27x12":true,
     "27x11":true,
     "27x10":true,
+    "15x2":true,
+    "15x3":true,
+    "14x2":true,
+    "14x3":true,
   },
 };
 
