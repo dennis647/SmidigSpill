@@ -252,6 +252,24 @@ function getRandomSafeSpot() {
     });
   }
 
+  function checkEndGame() {
+    const playersRef = firebase.database().ref("players");
+    
+    playersRef.once("value", (snapshot) => {
+      const players = snapshot.val();
+      const currentPlayer = players[playerId];
+      const winAmount = players[playerId].collectedPaintings;
+      
+      if (currentPlayer.collectedPaintings >= 10) {
+        console.log(`Du vinner med ${winAmount} bilder stjålet!`);
+      } else {
+        console.log("U lose");
+      }
+      playersRef.remove();
+    });
+  }
+
+
   function attemptGrabCoin(x, y) {
 
     const key = getKeyString(x, y);
@@ -289,6 +307,7 @@ function getRandomSafeSpot() {
         coins: players[playerId].coins = 0,
         collectedPaintings: players[playerId].collectedPaintings = sum,
       })
+      checkEndGame();
     }
   }
 
@@ -772,7 +791,6 @@ function getRandomSafeSpot() {
     if((Math.abs(guardData.x - player.x) === 1 && guardData.y === player.y) ||
     (guardData.x === player.x && Math.abs(guardData.y - player.y) === 1) ||
     (Math.abs(guardData.x - player.x) === 1 && Math.abs(guardData.y - player.y) === 1)){
-      console.log("bomp");
       collisionDetected = true;
       collidedPlayerId = key;
       const collisionSound = new Audio('/sounds/Oof.mp3');
@@ -829,6 +847,9 @@ function getRandomSafeSpot() {
   });
 
 })();
+
+
+
 
 
 
