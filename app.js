@@ -3,7 +3,12 @@ const mapData = {
   maxX: 29,
   minY: 0,
   maxY: 15,
-  returnPoint:"7x4",
+  returnPoint:{
+    "13x0":true,
+    "14x0":true,
+    "15x0":true,
+    "16x0":true,
+  },
   blockedSpaces: {
     "1x3": true,
     "2x3": true,
@@ -133,7 +138,7 @@ function createName() {
     "LØSRIVELSE",
     "STJERNENATT",
     "STRAND",
-    "SJALSUI",
+    "SJALUSI",
     "TOGRØYK",
   ]);
 
@@ -200,29 +205,29 @@ function getRandomSafeSpot() {
 
   function placeCoin() {
     const coinSpawnPoints = [
-      { x: 1, y: 4 },
-      { x: 2, y: 4 },
-      { x: 1, y: 5 },
-      { x: 2, y: 6 },
-      { x: 2, y: 8 },
-      { x: 2, y: 9 },
-      { x: 4, y: 8 },
-      { x: 5, y: 5 },
-      { x: 5, y: 8 },
-      { x: 5, y: 10 },
-      { x: 5, y: 11 },
-      { x: 11, y: 7 },
-      { x: 12, y: 7 },
-      { x: 13, y: 7 },
-      { x: 13, y: 6 },
-      { x: 13, y: 8 },
-      { x: 7, y: 6 },
-      { x: 7, y: 7 },
-      { x: 7, y: 8 },
-      { x: 8, y: 8 },
-      { x: 10, y: 8 },
-      { x: 8, y: 8 },
+      { x: 1, y: 6 },
+      { x: 1, y: 10 },
+      { x: 1, y: 12 },
+      { x: 8, y: 14 },
+      { x: 12, y: 14 },
+      { x: 14, y: 14 },
+      { x: 16, y: 14 },
+      { x: 20, y: 14 },
+      { x: 28, y: 14 },
+      { x: 7, y: 14 },
+      { x: 10, y: 14 },
+      { x: 25, y: 6 },
+      { x: 25, y: 12 },
+      { x: 3, y: 4 },
+      { x: 5, y: 4 },
+      { x: 9, y: 4 },
       { x: 11, y: 4 },
+      { x: 18, y: 4 },
+      { x: 20, y: 4 },
+      { x: 7, y: 5 },
+      { x: 7, y: 7 },
+      { x: 7, y: 13 },
+      { x: 7, y: 13 },
     ];
 
     coinSpawnPoints.forEach((point) => {
@@ -272,7 +277,7 @@ function getRandomSafeSpot() {
   }
   function attemptReturn(x, y){
     const key = getKeyString(x,y);
-    if(mapData.returnPoint == key){
+    if(key in mapData.returnPoint){
       if(players[playerId].coins >= 1){
         caching.play();
       }
