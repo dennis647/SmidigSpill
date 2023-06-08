@@ -1,31 +1,4 @@
-firebase.initializeApp(firebaseConfig);
 
-const database = firebase.database();
-const ref = database.ref("Countdown");
-const ServerValue = firebase.database.ServerValue;
-ref.set({
-  startAt: ServerValue.TIMESTAMP,
-  seconds: 30
-});
-
-const serverTimeOffset = 0;
-database.ref(".info/serverTimeOffset").on("value", (snapshot) => { serverTimeOffset = snapshot.val() });
-ref.on("value", (snapshot) => {
-  const seconds = snapshot.val().seconds;
-  const startAt = snapshot.val().startAt;
-  const interval = setInterval(() => {
-    const timeLeft = (seconds * 1000) - (Date.now() - startAt - serverTimeOffset);
-    if (timeLeft < 0) {
-      clearInterval(interval);
-      console.log("0.0 left");
-    }
-    else {
-      console.log(`${Math.floor(timeLeft/1000)}.${timeLeft % 1000}`);
-    }
-  }, 100)
-});
-
-/*
 firebase.initializeApp(firebaseConfig);
 window.addEventListener('load', joinLobby);
 firebase.database().ref('countdown').set(30);
@@ -65,4 +38,4 @@ function decrementCountdown() {
     }
   });
 }
-var interval = setInterval(decrementCountdown, 1000);*/
+var interval = setInterval(decrementCountdown, 1000);
