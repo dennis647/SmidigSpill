@@ -806,6 +806,7 @@ function getRandomSafeSpot() {
   guardElement.classList.add("Character", "grid-cell");
   guardElement.setAttribute("data-color", guardData.color);
   guardElement.setAttribute("data-direction", guardData.direction);
+  guardElement.style.zIndex = 1;
   guardElement.innerHTML = `
     <div class="Character_shadow grid-cell"></div>
     <img src="/images/guard.png" class="grid-cell"/>
@@ -822,7 +823,7 @@ function getRandomSafeSpot() {
   gameContainer.appendChild(guardElement);
   players[guardData.id] = guardData;
   playerElements[guardData.id] = guardElement;
-
+  
   function moveGuardRandomly() {
   const xChange = Math.floor(Math.random() * 3) - 1; // Random x-direction (-1, 0, 1)
   const yChange = Math.floor(Math.random() * 3) - 1; // Random y-direction (-1, 0, 1)
