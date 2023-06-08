@@ -308,17 +308,14 @@ function getRandomSafeSpot() {
             });
           });
         });
-
-        if (players[playerId].gameHasEnded >= 2) {
-          console.log("You have won champ!");
-        } if (players[playerId].gameHasEnded === 1) {
-          console.log("You lost reet");
-        }
-    
-
-       // playersRef.remove();
+        setTimeout(removePlayers, 3100);
       } 
     });
+}
+
+function removePlayers() {
+  const playersRef = firebase.database().ref('players');
+  playersRef.remove();
 }
 
   function attemptGrabCoin(x, y) {
@@ -479,6 +476,27 @@ function getRandomSafeSpot() {
         music.play();
       }
     });
+
+
+    const database = firebase.database();
+
+    // Set up the loop to run every 3 seconds
+    setInterval(() => {
+      // Retrieve the players from the database
+      database.ref('players').once('value', (snapshot) => {
+        snapshot.forEach((playerSnapshot) => {
+          const playerId = playerSnapshot.key;
+          const player = playerSnapshot.val();
+    
+          // Check the gameHasEnded property for each player
+          if (player.gameHasEnded >= 2) {
+            console.log("Player", playerId, "has won!");
+          } else if (player.gameHasEnded === 1) {
+            console.log("Player", playerId, "has lost.");
+          }
+        });
+      });
+    }, 3000);
 
 
     let spacePressed = false;
