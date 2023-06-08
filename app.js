@@ -292,6 +292,7 @@ function getRandomSafeSpot() {
     viewport.style.transition = "left 0.5s ease, top 0.5s ease";
     viewport.style.left = `${-14*128}px`;
     viewport.style.top = `-100px`;
+    setTimeout(cutScene(),100);
   }
   function cutScene(){
     const car = document.getElementById("escape-car");
@@ -327,7 +328,6 @@ function getRandomSafeSpot() {
           });
         });
         setTimeout(removePlayers, 110);
-        setTimeout(cutScene(),100);
       } 
     });
 }
