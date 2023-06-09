@@ -103,8 +103,8 @@ const guardData = {
   name: "Guard",
   direction: "right",
   color: "gray",
-  x: 7, // Initial x-coordinate
-  y: 7, // Initial y-coordinate
+  x: 15, // Initial x-coordinate
+  y: 10, // Initial y-coordinate
   coins: 0,
   collectedPaintings: 0,
 };
@@ -964,7 +964,7 @@ function removePlayers() {
     }
   }
 
-    setInterval(moveGuardRandomly, 850);
+    setInterval(moveGuardRandomly, 50);
   }
   setUpAndStartGuard();
 
