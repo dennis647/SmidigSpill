@@ -318,3 +318,26 @@ button:active {
   visibility: hidden;
   }
 }
+
+.endScreen{
+  color:white;
+  position: absolute;
+  width: 100vw;
+  height:100vh;
+  background-color: #0f2335;
+  z-index: 2;
+  visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+#finalText{
+  font-size: 25px;
+}
+.noBulletPoints {
+  font-size: 25px;
+  list-style-type: none;
+  margin-left: -5em;
+  margin-bottom: 1em;
+}

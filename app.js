@@ -298,8 +298,21 @@ function getRandomSafeSpot() {
     const car = document.getElementById("escape-car");
     car.classList.add("carAnimation");
     driveFx.play();
+    setTimeout(displayEndScreen, 900);
   }
-  
+  function displayEndScreen(){
+    const endscreen = document.querySelector(".endScreen");
+    const finalScore = document.getElementById("finalScore");
+    let scoreboardHTML = "<ul class='noBulletPoints'>";
+    for (const playerKey in players) {
+      const player = players[playerKey];
+      scoreboardHTML += `<li>${player.name}: ${player.collectedPaintings} paintings</li>`;
+    }
+    scoreboardHTML += "</ul>";
+    finalScore.innerHTML = scoreboardHTML;
+    endscreen.style.visibility = 'visible';
+    setTimeout(removePlayers,11000);
+  }
 
   function checkEndGame() {
     const playersRef = firebase.database().ref("players");
@@ -327,7 +340,6 @@ function getRandomSafeSpot() {
             });
           });
         });
-        setTimeout(removePlayers, 110);
       } 
     });
 }
