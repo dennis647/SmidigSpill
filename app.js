@@ -110,7 +110,7 @@ const guardData = {
 };
 
 // Sound-fx and music
-const music = new Audio('/music/smooth-groove-10312.mp3');
+const music = new Audio('/music/music.mp3');
 const carDoor = new Audio('/sounds/carDoor.mp3');
 const moveFx = new Audio('/sounds/move.mp3');
 const pushFx = new Audio('/sounds/whoosh.mp3');
