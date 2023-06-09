@@ -297,7 +297,10 @@ function getRandomSafeSpot() {
   function cutScene(){
     const car = document.getElementById("escape-car");
     car.classList.add("carAnimation");
-    driveFx.play();
+    if (!driveFx.hasPlayed) {
+      driveFx.play();
+      driveFx.hasPlayed = true;
+    }
     setTimeout(displayEndScreen, 900);
   }
   function displayEndScreen(){
