@@ -1,4 +1,4 @@
-const mapData = {
+const mapData = { // defines boundries - blocked spaces, return points etc
   minX: 1,
   maxX: 29,
   minY: 0,
@@ -98,13 +98,13 @@ const mapData = {
   },
 };
 
-const guardData = {
+const guardData = { // defines guard objects initial state
   id: "guard",
   name: "Guard",
   direction: "right",
   color: "gray",
-  x: 15, // Initial x-coordinate
-  y: 10, // Initial y-coordinate
+  x: 15, 
+  y: 10, 
   coins: 0,
   collectedPaintings: 0,
 };
@@ -115,9 +115,10 @@ const carDoor = new Audio('/sounds/carDoor.mp3');
 const moveFx = new Audio('/sounds/move.mp3');
 const pushFx = new Audio('/sounds/whoosh.mp3');
 const dashFx = new Audio('/sounds/dash.mp3');
-const muteCheckbox = document.getElementById("musicToggle");
+const pickupFx = new Audio('/Sounds/paper.mp3');
 const collisionSound = new Audio('/sounds/Oof.mp3');
 const driveFx = new Audio('/sounds/drive.mp3');
+const muteCheckbox = document.getElementById("musicToggle");
 
 // Options for Player Colors... these are in the same order as our sprite sheet
 const playerColors = ["blue", "red", "orange", "yellow", "green", "purple"];
@@ -131,7 +132,7 @@ function getKeyString(x, y) {
 }
 
 
-function createName() {
+function createName() { // creates a random name for the player when they join
   const nameGen = randomFromArray([
     "EDVARD",
     "MUNCH",
@@ -148,7 +149,7 @@ function createName() {
   return `${nameGen}`;
 }
 
-function isSolid(x,y) {
+function isSolid(x,y) { // player collison checker
 
   const blockedNextSpace = mapData.blockedSpaces[getKeyString(x, y)];
   return (
@@ -359,7 +360,6 @@ function removePlayers() {
 
     if (coins[key]) {
       if (players[playerId].coins <= 2) {
-      const pickupFx = new Audio('/Sounds/paper.mp3');
       pickupFx.play();
       // Remove this key from data, then uptick Player's coin count
       firebase.database().ref(`coins/${key}`).remove();
@@ -926,7 +926,6 @@ function removePlayers() {
     (Math.abs(guardData.x - player.x) === 1 && Math.abs(guardData.y - player.y) === 1)){
       collisionDetected = true;
       collidedPlayerId = key;
-      const collisionSound = new Audio('/sounds/Oof.mp3');
       // Remove a coin from the collided player if they have any
       if (players[collidedPlayerId].coins > 0) {
         if(collidedPlayerId === playerId){
