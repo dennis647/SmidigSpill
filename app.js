@@ -200,8 +200,8 @@ function getRandomSafeSpot() { // defines player spawn-points
   const playerNameInput = document.querySelector("#player-name");
   const playerColorButton = document.querySelector("#player-color");
 
-  function placePainting() {
-    const paintingSpawnPoints = [ // set spawnpoints for the paintings
+  function placePainting() { // set spawnpoints for the paintings
+    const paintingSpawnPoints = [ 
       { x: 1, y: 6 },
       { x: 1, y: 4 },
       { x: 1, y: 8 },
@@ -391,13 +391,7 @@ function removePlayers() {
     }
   }
 
-  /*
-  function checkCollision(player1, player2){
-    return player1.x === player2.x && player1.y === player2.y
-
-}*/
-
-  function handleArrowPress(xChange=0, yChange=0) {
+  function handleArrowPress(xChange=0, yChange=0) { // handle player inputs
     const newX = players[playerId].x + xChange;
     const newY = players[playerId].y + yChange;
 
@@ -485,7 +479,7 @@ function removePlayers() {
     }
   }
 
-  window.onload = function() {
+  window.onload = function() { // starts music, and adjusts browser viewport when loading the site
      setTimeout(
       function() {
         music.play();
@@ -508,8 +502,6 @@ function removePlayers() {
         music.play();
       }
     });
-
-
     const database = firebase.database();
 
     // Set up the loop to run every 3 seconds
@@ -535,9 +527,9 @@ function removePlayers() {
 
     let spacePressed = false;
     let lastSpacePressTime = 0;
-    let actionPerformed = false;
     const pressCooldown = 5000;
 
+    // handles movement and power-up usage
     new KeyPressListener("Space", () => {
       const currentTime = Date.now();
       const elapsedTime = currentTime - lastSpacePressTime;
@@ -547,7 +539,6 @@ function removePlayers() {
         lastSpacePressTime = currentTime;
       }
     });
-
     new KeyPressListener("ArrowDown", () => {
       if (spacePressed === false) {
       handleArrowPress(0, 1)
@@ -560,7 +551,6 @@ function removePlayers() {
 
     }
   });
-
     new KeyPressListener("ArrowLeft", () => {
       if (spacePressed === false) {
         handleArrowPress(-1, 0);
@@ -572,7 +562,6 @@ function removePlayers() {
         dashEffect(x);
       }
   });
-
     new KeyPressListener("ArrowRight", () => {
       if (spacePressed === false) {
         handleArrowPress(1, 0);
@@ -585,7 +574,6 @@ function removePlayers() {
         dashEffect(x);
     }
   });
-
     new KeyPressListener("ArrowUp", () => {
       if (spacePressed === false) {
         handleArrowPress(0, -1);
@@ -598,7 +586,7 @@ function removePlayers() {
       }
     });
 
-    function updateCooldownDisplay() {
+    function updateCooldownDisplay() { // updates power-up cooldown UI
       const currentTime = Date.now();
       const elapsedTime = currentTime - lastSpacePressTime;
       const remainingTime = pressCooldown - elapsedTime;
@@ -615,13 +603,12 @@ function removePlayers() {
         powerupCooldown.style.background = `#fe390f`;
       }
     }
-
     setInterval(updateCooldownDisplay, 1000);
 
     const allPlayersRef = firebase.database().ref(`players`);
     const allpaintingsRef = firebase.database().ref(`paintings`);
 
-    function updateScoreboard() {
+    function updateScoreboard() { // handles scoreboard over who has returned the most paintings to the car
       const scoreboardBody = document.getElementById("scoreboard-body");
       scoreboardBody.innerHTML = ""; // Clear existing scores
 
@@ -826,22 +813,10 @@ function removePlayers() {
           e.preventDefault();
       }
   }, false);
-
-    /*function updateCamera(pX, pY){
-      const width = gameContainer.offsetWidth;
-      const height = gameContainer.offsetHeight;
-      const camX = pX;
-      const camY = pY;
-      gameContainer.style.transform = `translate3d(${-camX}px, ${-camY}px, 0)`;
-      /*CamX = x;
-      CamY = y;
-      gameContainer.style.transform = `translate3d(${camX}px, ${camY}px, 0)`;
-    }
-    setInterval(updateCamera(playerRef.x , playerRef.y), 100);*/
   }
 
   
-  firebase.auth().onAuthStateChanged((user) => {
+  firebase.auth().onAuthStateChanged((user) => { // handles authentication for firebase database
     console.log(user)
     if (user) {
       //You're logged in!
@@ -967,10 +942,9 @@ function removePlayers() {
   }
   setUpAndStartGuard();
 
-  firebase.auth().signInAnonymously().catch((error) => {
+  firebase.auth().signInAnonymously().catch((error) => { // set up to make it so firebase wont demand specific log-in credentials
     var errorCode = error.code;
     var errorMessage = error.message;
-    // ...
     console.log(errorCode, errorMessage);
 
   });
