@@ -214,21 +214,21 @@ button:active {
   white-space: nowrap;
 }
 
-.Character_coins {
+.Character_paintings {
   margin-left: 1px;
   color: gold;
 }
 
-/* Coins */
-.Coin_sprite {
+/* paintings */
+.Painting_sprite {
   background: url(/images/coin.png) no-repeat no-repeat;
-  animation: coinFloat 0.8s linear infinite alternate-reverse;
+  animation: Float 0.8s linear infinite alternate-reverse;
 }
-@keyframes coinFloat {
+@keyframes Float {
   from { transform: translateY(0) }
   to { transform: translateY(0.3px) }
 }
-.Coin_shadow {
+.Painting_shadow {
   top: 5px;
   background: url(/images/shadow.png) no-repeat no-repeat;
 }

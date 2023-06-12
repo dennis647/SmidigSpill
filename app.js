@@ -105,7 +105,7 @@ const guardData = { // defines guard objects initial state
   color: "gray",
   x: 15, 
   y: 10, 
-  coins: 0,
+  paintings: 0,
   collectedPaintings: 0,
 };
 
@@ -191,8 +191,8 @@ function getRandomSafeSpot() { // defines player spawn-points
   let playerRef;
   let players = {};
   let playerElements = {};
-  let coins = {};
-  let coinElements = {};
+  let paintings = {};
+  let paintingElements = {};
   let sum = 0;
 
 
@@ -200,8 +200,8 @@ function getRandomSafeSpot() { // defines player spawn-points
   const playerNameInput = document.querySelector("#player-name");
   const playerColorButton = document.querySelector("#player-color");
 
-  function placeCoin() {
-    const coinSpawnPoints = [ // set spawnpoints for the paintings
+  function placePainting() {
+    const paintingSpawnPoints = [ // set spawnpoints for the paintings
       { x: 1, y: 6 },
       { x: 1, y: 4 },
       { x: 1, y: 8 },
@@ -238,11 +238,11 @@ function getRandomSafeSpot() { // defines player spawn-points
       { x: 25, y: 14},
     ];
 
-    coinSpawnPoints.forEach((point) => {
+    paintingSpawnPoints.forEach((point) => {
       const key = getKeyString(point.x, point.y);
-      if (!coins[key]) {
-        const coinRef = firebase.database().ref(`coins/${key}`);
-        coinRef.set({
+      if (!paintings[key]) {
+        const paintingRef = firebase.database().ref(`paintings/${key}`);
+        paintingRef.set({
           x: point.x,
           y: point.y,
         });
@@ -277,12 +277,12 @@ function getRandomSafeSpot() { // defines player spawn-points
     }, 500);
   }
 
-  function removeCoins() {
-    const allCoinsRef = firebase.database().ref(`coins`);
-    allCoinsRef.once("value", (snapshot) => {
-      const coins = snapshot.val() || {};
-      Object.keys(coins).forEach((key) => {
-        firebase.database().ref(`coins/${key}`).remove();
+  function removePaintings() {
+    const allpaintingsRef = firebase.database().ref(`paintings`);
+    allpaintingsRef.once("value", (snapshot) => {
+      const paintings = snapshot.val() || {};
+      Object.keys(paintings).forEach((key) => {
+        firebase.database().ref(`paintings/${key}`).remove();
       });
     });
   }
@@ -351,18 +351,18 @@ function removePlayers() {
   playersRef.remove();
 }
 
-  function attemptGrabCoin(x, y) {
+  function attemptGrabpainting(x, y) {
 
     const key = getKeyString(x, y);
     const errorMsg = document.getElementById("errorMsg");
 
-    if (coins[key]) {
-      if (players[playerId].coins <= 2) {
+    if (paintings[key]) {
+      if (players[playerId].paintings <= 2) {
       pickupFx.play();
-      // Remove this key from data, then uptick Player's coin count
-      firebase.database().ref(`coins/${key}`).remove();
+      // Remove this key from data, then uptick Player's painting count
+      firebase.database().ref(`paintings/${key}`).remove();
       playerRef.update({
-        coins: players[playerId].coins + 1,
+        paintings: players[playerId].paintings + 1,
       })
     } else {
     errorMsg.style.display = `block`;
@@ -376,15 +376,15 @@ function removePlayers() {
   function attemptReturn(x, y){
     const key = getKeyString(x,y);
     if(key in mapData.returnPoint){
-      if(players[playerId].coins >= 1){
+      if(players[playerId].paintings >= 1){
         carDoor.play();
       }
       console.log("Painting(s) saved!");
       const paintingsCollected = document.getElementById("collected-paintings");
-      sum += players[playerId].coins;
+      sum += players[playerId].paintings;
       paintingsCollected.innerHTML = `Stolen Paintings: ${sum}`
       playerRef.update({
-        coins: players[playerId].coins = 0,
+        paintings: players[playerId].paintings = 0,
         collectedPaintings: players[playerId].collectedPaintings = sum,
       })
       checkEndGame();
@@ -404,7 +404,7 @@ function removePlayers() {
     let collisionDetected = false;
     if(guardData.x === newX && guardData.y === newY){
       collisionDetected = true;
-      if(players[playerId].coins > 0){
+      if(players[playerId].paintings > 0){
         collisionSound.play();
       const redFlash = document.getElementById("red-Flash");
       redFlash.style.display = 'block';
@@ -412,7 +412,7 @@ function removePlayers() {
       redFlash.style.display = 'none';
       }, 200);
       playerRef.update({
-      coins: players[playerId].coins -= 1,
+      paintings: players[playerId].paintings -= 1,
       })
       }
     }
@@ -430,12 +430,12 @@ function removePlayers() {
           redFlash.style.display = 'none';
           }, 200);
 
-          if(players[pushedPlayerId].coins >= 1) {
+          if(players[pushedPlayerId].paintings >= 1) {
           firebase.database().ref(`players/${pushedPlayerId}`).update({
-            coins: players[pushedPlayerId].coins -= 1, collisionDetected: true})
-            if(players[pushedPlayerId].coins >= 0) {
+            paintings: players[pushedPlayerId].paintings -= 1, collisionDetected: true})
+            if(players[pushedPlayerId].paintings >= 0) {
             playerRef.update({
-              coins: players[playerId].coins + 1,
+              paintings: players[playerId].paintings + 1,
             })
           }
            else {
@@ -459,7 +459,7 @@ function removePlayers() {
         players[playerId].direction = "left";
       }
       playerRef.set(players[playerId]);
-      attemptGrabCoin(newX, newY);
+      attemptGrabpainting(newX, newY);
       attemptReturn(newX,newY);
 
       // Adjust viewport position based on character's position
@@ -619,7 +619,7 @@ function removePlayers() {
     setInterval(updateCooldownDisplay, 1000);
 
     const allPlayersRef = firebase.database().ref(`players`);
-    const allCoinsRef = firebase.database().ref(`coins`);
+    const allpaintingsRef = firebase.database().ref(`paintings`);
 
     function updateScoreboard() {
       const scoreboardBody = document.getElementById("scoreboard-body");
@@ -646,7 +646,7 @@ function removePlayers() {
         let el = playerElements[key];
         // Now update the DOM
         el.querySelector(".Character_name").innerText = characterState.name;
-        el.querySelector(".Character_coins").innerText = characterState.coins;
+        el.querySelector(".Character_paintings").innerText = characterState.paintings;
         el.setAttribute("data-color", characterState.color);
         el.setAttribute("data-direction", characterState.direction);
         const left = 16 * characterState.x + "px";
@@ -676,7 +676,7 @@ function removePlayers() {
         <div class="Character_sprite grid-cell"></div>
         <div class="Character_name-container">
           <span class="Character_name"></span>
-          <span class="Character_coins">0</span>
+          <span class="Character_paintings">0</span>
         </div>
         <div class="Character_you-arrow"></div>
       `);
@@ -684,7 +684,7 @@ function removePlayers() {
 
       //Fill in some initial state
       characterElement.querySelector(".Character_name").innerText = addedPlayer.name;
-      characterElement.querySelector(".Character_coins").innerText = addedPlayer.coins;
+      characterElement.querySelector(".Character_paintings").innerText = addedPlayer.paintings;
       characterElement.setAttribute("data-color", addedPlayer.color);
       characterElement.setAttribute("data-direction", addedPlayer.direction);
       const left = 16 * addedPlayer.x + "px";
@@ -700,18 +700,18 @@ function removePlayers() {
       delete playerElements[removedKey];
     })
 
-    //This block will remove coins from local state when Firebase `coins` value updates
-    allCoinsRef.on("value", (snapshot) => {
-      coins = snapshot.val() || {};
+    //This block will remove paintings from local state when Firebase `paintings` value updates
+    allpaintingsRef.on("value", (snapshot) => {
+      paintings = snapshot.val() || {};
     });
     //
 
-    allCoinsRef.on("child_added", (snapshot) => {
-      const coin = snapshot.val();
-      const key = getKeyString(coin.x, coin.y);
-      coins[key] = true;
+    allpaintingsRef.on("child_added", (snapshot) => {
+      const painting = snapshot.val();
+      const key = getKeyString(painting.x, painting.y);
+      paintings[key] = true;
 
-      const coinSprites = [
+      const paintingSprites = [
         "/images/art1.png",
         "/images/art2.png",
         "/images/art5.png",
@@ -743,31 +743,31 @@ function removePlayers() {
         // Add more PNG image paths or URLs as needed
       ];
 
-    const randomIndex = Math.floor(Math.random() * coinSprites.length);
-    const selectedCoinSprite = coinSprites[randomIndex];
+    const randomIndex = Math.floor(Math.random() * paintingSprites.length);
+    const selectedpaintingSprite = paintingSprites[randomIndex];
 
       // Create the DOM Element
-      const coinElement = document.createElement("div");
-      coinElement.classList.add("Coin", "grid-cell");
-      coinElement.innerHTML = `
-        <div class="Coin_shadow grid-cell"></div>
-        <img src="${selectedCoinSprite}" class="Coin_sprite grid-cell"/>
+      const paintingElement = document.createElement("div");
+      paintingElement.classList.add("painting", "grid-cell");
+      paintingElement.innerHTML = `
+        <div class="painting_shadow grid-cell"></div>
+        <img src="${selectedpaintingSprite}" class="painting_sprite grid-cell"/>
       `;
 
       // Position the Element
-      const left = 16 * coin.x + "px";
-      const top = 16 * coin.y - 4 + "px";
-      coinElement.style.transform = `translate3d(${left}, ${top}, 0)`;
+      const left = 16 * painting.x + "px";
+      const top = 16 * painting.y - 4 + "px";
+      paintingElement.style.transform = `translate3d(${left}, ${top}, 0)`;
 
       // Keep a reference for removal later and add to DOM
-      coinElements[key] = coinElement;
-      gameContainer.appendChild(coinElement);
+      paintingElements[key] = paintingElement;
+      gameContainer.appendChild(paintingElement);
     })
-    allCoinsRef.on("child_removed", (snapshot) => {
+    allpaintingsRef.on("child_removed", (snapshot) => {
       const {x,y} = snapshot.val();
       const keyToRemove = getKeyString(x,y);
-      gameContainer.removeChild( coinElements[keyToRemove] );
-      delete coinElements[keyToRemove];
+      gameContainer.removeChild( paintingElements[keyToRemove] );
+      delete paintingElements[keyToRemove];
     })
 
     //Updates player name with text input
@@ -806,20 +806,19 @@ function removePlayers() {
       })
     })
 
-    //Place my first coin
-    //placeCoin();
-    allCoinsRef.once("value", (snapshot) => {
-      const coinsExist = snapshot.exists();
-      if (!coinsExist || Object.keys(players).length === 1) {
-        // No coins exist, so we can place them
-        placeCoin();
+   
+    allpaintingsRef.once("value", (snapshot) => {
+      const paintingsExist = snapshot.exists();
+      if (!paintingsExist || Object.keys(players).length === 1) {
+        // No paintings exist, so we can place them
+        placePainting();
       }
     });
 
     allPlayersRef.on("value", (snapshot) => {
       const players = snapshot.val() || {};
       if (Object.keys(players).length === 0) {
-        removeCoins();
+        removePaintings();
       }
     });
     window.addEventListener("keydown", function(e) {
@@ -861,7 +860,7 @@ function removePlayers() {
         color: randomFromArray(playerColors),
         x,
         y,
-        coins: 0,
+        paintings: 0,
         collectedPaintings: 0,
         gameHasEnded: 0,
       })
@@ -924,16 +923,16 @@ function removePlayers() {
     (Math.abs(guardData.x - player.x) === 1 && Math.abs(guardData.y - player.y) === 1)){
       collisionDetected = true;
       collidedPlayerId = key;
-      // Remove a coin from the collided player if they have any
-      if (players[collidedPlayerId].coins > 0) {
+      // Remove a painting from the collided player if they have any
+      if (players[collidedPlayerId].paintings > 0) {
         if(collidedPlayerId === playerId){
           collisionSound.play();
         }
         firebase.database().ref(`players/${collidedPlayerId}`).update({
-          coins: players[collidedPlayerId].coins - 1,
+          paintings: players[collidedPlayerId].paintings - 1,
           collisionDetected: true,
         });
-        guardData.coins = guardData.coins + 1;
+        guardData.paintings = guardData.paintings + 1;
       }
     }
   }
