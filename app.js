@@ -161,8 +161,7 @@ function isSolid(x,y) { // player collison checker
   )
 }
 
-function getRandomSafeSpot() {
-  //We don't look things up by key here, so just return an x/y
+function getRandomSafeSpot() { // defines player spawn-points
   return randomFromArray([
     { x: 0, y: 0 },
     { x: 0, y: 1 },
@@ -195,7 +194,6 @@ function getRandomSafeSpot() {
   let coins = {};
   let coinElements = {};
   let sum = 0;
-  let allPlayersRef = {};
 
 
   const gameContainer = document.querySelector(".game-container");
@@ -203,7 +201,7 @@ function getRandomSafeSpot() {
   const playerColorButton = document.querySelector("#player-color");
 
   function placeCoin() {
-    const coinSpawnPoints = [
+    const coinSpawnPoints = [ // set spawnpoints for the paintings
       { x: 1, y: 6 },
       { x: 1, y: 4 },
       { x: 1, y: 8 },
@@ -251,7 +249,7 @@ function getRandomSafeSpot() {
       }
     });
   }
-  function dashEffect(x){
+  function dashEffect(x){ // adds a small visual effect when performing the dash ability
     const dashVisual = document.createElement("dashDiv");
     dashVisual.classList.add("dash");
     dashVisual.style.position = "absolute";
