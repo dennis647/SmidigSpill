@@ -366,7 +366,7 @@ function removePlayers() {
       })
     } else {
     errorMsg.style.display = `block`;
-    errorMsg.innerHTML = `Du har nådd maks antall bilder du kan bære!`;
+    errorMsg.innerHTML = `You cant hold more paintings`;
     setTimeout(() => {
       errorMsg.style.display = `none`;
     }, 1500);
